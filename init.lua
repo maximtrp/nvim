@@ -1,0 +1,5 @@
+require("config.settings")
+require("config.lazy")
+require("config.file-browser")
+require("config.keymaps")
+require("config.other")
