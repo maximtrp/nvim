@@ -1,19 +1,21 @@
 local opts = { noremap = true, silent = true }
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+vim.keymap.set("n", "<down>", "gj")
+vim.keymap.set("n", "<up>", "gk")
 
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover, opts)
 vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, opts)
 vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts)
-vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 
 vim.keymap.set(
-	"n",
-	"<leader>fb",
-	':lua require("telescope").extensions.file_browser.file_browser({ path = vim.fn.expand("%:p:h"), select_buffer = true })<cr>',
-	opts
+  "n",
+  "<leader>fb",
+  ':lua require("telescope").extensions.file_browser.file_browser({ path = vim.fn.expand("%:p:h"), select_buffer = true })<cr>',
+  opts
 )
 vim.keymap.set("n", "<leader>fd", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
 vim.keymap.set("n", "<leader>fD", "<cmd>Telescope diagnostics<CR>", opts)
@@ -29,7 +31,6 @@ vim.keymap.set("n", "<leader>gr", "<cmd>Telescope lsp_references<cr>", opts)
 vim.keymap.set("n", "<leader>gd", "<cmd>Telescope lsp_definitions", opts)
 vim.keymap.set("n", "<leader>gi", "<cmd>Telescope lsp_implementations", opts)
 
-vim.keymap.set("n", "<leader>m", "<cmd>Mason<cr>", opts)
 vim.keymap.set("n", "<leader>l", "<cmd>Lazy update<cr>", opts)
 
 vim.keymap.set({ "v", "n" }, "<leader>y", '"+y', opts)
@@ -50,7 +51,7 @@ vim.keymap.set("n", "<leader>gb", "<cmd>Gitsigns blame_line<cr>")
 vim.keymap.set({ "n", "v" }, "<leader>gs", "<cmd>Telescope git_status<cr>")
 
 vim.keymap.set("n", "<leader>wl", function()
-	print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 end, opts)
 
 --vim.keymap.set("n", "zR", require("ufo").openAllFolds)
