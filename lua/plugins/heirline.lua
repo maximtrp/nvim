@@ -1,6 +1,6 @@
 return {
 	"rebelot/heirline.nvim",
-	event = "UiEnter",
+	event = "VeryLazy",
 	dependencies = { "lewis6991/gitsigns.nvim" },
 	config = function()
 		local heirline = require("heirline")

@@ -21,7 +21,7 @@ local hi = function(name, val)
 end
 
 local light = {
-	white = "#d2d2d2",
+	white = "#f0f0f0",
 	red = "#b51c42",
 	light_red = "#f43f5e",
 	blue = "#2656d9",
@@ -36,7 +36,7 @@ local light = {
 	brown = "#b06933",
 	black = "#3F3F3F",
 	grey = "#737373",
-	light_grey = "#dedede",
+	light_grey = "#dadada",
 }
 
 local dark = {
@@ -57,8 +57,6 @@ local dark = {
 	grey = "#888888",
 	dark_grey = "#444444",
 }
-
-hi("NotifyBackground", { fg = "Black", bg = "LightGrey" })
 
 --hi('String',         { link = 'Constant' })
 --hi('Character',      { link = 'Constant' })
@@ -205,7 +203,11 @@ if vim.o.background == "light" then
 	hi("Normal", { fg = light.black })
 	hi("Title", { fg = light.black, bold = true })
 	hi("NormalFloat", { bg = light.light_grey, fg = light.black })
-	hi("NormalNC", { fg = light.grey })
+	hi("LazyGitFloat", { bg = light.white, fg = light.black })
+	hi("LazyGitBorder", { bg = light.white, fg = light.black })
+	hi("NormalNC", { fg = light.grey, bg = light.light_grey })
+	hi("BufferLineBufferSelected", { fg = light.black, bold = true })
+	hi("BufferLineCloseButtonSelected", { fg = light.red })
 
 	hi("Directory", { fg = light.black, bold = true })
 	hi("MsgArea", { bg = light.light_grey, fg = light.black })
@@ -213,7 +215,8 @@ if vim.o.background == "light" then
 	hi("Search", { bg = light.yellow, fg = light.black })
 	hi("Pmenu", { bg = light.light_grey, fg = light.black })
 	hi("PmenuSel", { bg = light.grey, fg = light.white })
-	hi("WarningMsg", { fg = light.red })
+	hi("WarningMsg", { fg = light.orange })
+	hi("ErrorMsg", { fg = light.red })
 	hi("Special", { fg = light.grey })
 	hi("MatchParen", { fg = light.orange })
 
@@ -244,18 +247,24 @@ if vim.o.background == "light" then
 	hi("IblScope", { fg = "#a8a29e" })
 else
 	-- Default colors only used with a dark background.
-	hi("Normal", { fg = dark.black })
-	hi("Title", { fg = dark.black, bold = true })
-	hi("NormalFloat", { bg = dark.dark_grey, fg = dark.black })
+	hi("Normal", { fg = dark.white })
+	hi("Title", { fg = dark.white, bold = true })
+	hi("NormalFloat", { bg = dark.dark_grey, fg = dark.white })
+	hi("LazyGitFloat", { bg = dark.dark_grey, fg = dark.white })
 	hi("NormalNC", { fg = dark.grey })
+	hi("LazyGitFloat", { bg = dark.black, fg = dark.white })
+	hi("LazyGitBorder", { bg = dark.black, fg = dark.white })
+	hi("BufferLineBufferSelected", { fg = dark.white, bold = true })
+	hi("BufferLineCloseButtonSelected", { fg = dark.red })
 
-	hi("Directory", { fg = dark.black, bold = true })
-	hi("MsgArea", { bg = dark.dark_grey, fg = dark.black })
-	hi("Visual", { bg = dark.dark_grey, fg = dark.black })
-	hi("Search", { bg = dark.yellow, fg = dark.black })
-	hi("Pmenu", { bg = dark.dark_grey, fg = dark.black })
+	hi("Directory", { fg = dark.white, bold = true })
+	hi("MsgArea", { bg = dark.dark_grey, fg = dark.white })
+	hi("Visual", { bg = dark.dark_grey, fg = dark.white })
+	hi("Search", { bg = dark.yellow, fg = dark.white })
+	hi("Pmenu", { bg = dark.dark_grey, fg = dark.white })
 	hi("PmenuSel", { bg = dark.grey, fg = dark.white })
-	hi("WarningMsg", { fg = dark.red })
+	hi("WarningMsg", { fg = dark.orange })
+	hi("ErrorMsg", { fg = dark.red })
 	hi("Special", { fg = dark.orange })
 	hi("MatchParen", { fg = dark.violet })
 
