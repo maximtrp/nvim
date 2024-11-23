@@ -18,5 +18,3 @@ vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 vim.o.undofile = true
 vim.o.updatetime = 250
-
-vim.cmd("colorscheme taili")

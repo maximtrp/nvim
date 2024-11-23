@@ -1,3 +1,4 @@
+vim.cmd("colorscheme taili")
 require("config.settings")
 require("config.lazy")
 require("config.file-browser")
