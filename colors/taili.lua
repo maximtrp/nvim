@@ -63,7 +63,8 @@ local dark = {
 --hi('Number',         { link = 'Constant' })
 --hi('Boolean',        { link = 'Constant' })
 --hi('Float',          { link = 'Number' })
---hi('Function',       { link = 'Identifier' })
+hi("StatusLine", { link = "Normal" })
+hi("StatusLineNC", { link = "NormalNC" })
 hi("Conditional", { link = "Conditional" })
 hi("Repeat", { link = "Conditional" })
 hi("Label", { link = "Statement" })
@@ -201,11 +202,11 @@ hi("@lsp.typemod.parameter.label", { link = "Parameter" })
 
 if vim.o.background == "light" then
 	hi("Normal", { fg = light.black })
-	hi("Title", { fg = light.black, bold = true })
+	hi("NormalNC", { fg = light.grey, bg = light.light_grey })
 	hi("NormalFloat", { bg = light.light_grey, fg = light.black })
+	hi("Title", { fg = light.black, bold = true })
 	hi("LazyGitFloat", { bg = light.white, fg = light.black })
 	hi("LazyGitBorder", { bg = light.white, fg = light.black })
-	hi("NormalNC", { fg = light.grey, bg = light.light_grey })
 	hi("BufferLineBufferSelected", { fg = light.black, bold = true })
 	hi("BufferLineCloseButtonSelected", { fg = light.red })
 
@@ -220,6 +221,8 @@ if vim.o.background == "light" then
 	hi("Special", { fg = light.grey })
 	hi("CmpItemKind", { fg = light.orange })
 	hi("MatchParen", { fg = light.orange })
+	hi("Conceal", { fg = light.grey })
+	hi("NonText", { fg = light.grey })
 
 	hi("Comment", { fg = light.grey })
 	hi("Constant", { fg = light.purple })
@@ -269,6 +272,8 @@ else
 	hi("Special", { fg = dark.grey })
 	hi("CmpItemKind", { fg = dark.orange })
 	hi("MatchParen", { fg = dark.violet })
+	hi("Conceal", { fg = dark.grey })
+	hi("NonText", { fg = dark.grey })
 
 	hi("Comment", { fg = dark.grey })
 	hi("Constant", { fg = dark.purple })

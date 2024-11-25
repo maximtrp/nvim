@@ -114,7 +114,7 @@ return {
 				return self.icon and (self.icon .. " ")
 			end,
 			hl = function(self)
-				return { fg = self.icon_color }
+				return { fg = self.icon_color, bg = "none" }
 			end,
 		}
 
@@ -124,12 +124,12 @@ return {
 				if filename == "" then
 					return "[No Name]"
 				end
-				if not conditions.width_percent_below(#filename, 0.4) then
+				if not conditions.width_percent_below(#filename, 0.5) then
 					filename = vim.fn.pathshorten(filename)
 				end
 				return filename
 			end,
-			hl = { fg = "black", bold = true },
+			hl = { fg = "black", bg = "none", bold = true },
 		}
 
 		local file_flags = {
@@ -138,21 +138,21 @@ return {
 					return vim.bo.modified
 				end,
 				provider = " 󱇧 ",
-				hl = { fg = "orange" },
+				hl = { fg = "orange", bg = "none" },
 			},
 			{
 				condition = function()
 					return not vim.bo.modifiable or vim.bo.readonly
 				end,
 				provider = " 󰈡 ",
-				hl = { fg = "red" },
+				hl = { fg = "red", bg = "none" },
 			},
 		}
 
 		local file_name_modifier = {
 			hl = function()
 				if vim.bo.modified then
-					return { fg = "black", bold = true, italic = true, force = true }
+					return { fg = "black", bg = "none", bold = true, italic = true, force = true }
 				end
 			end,
 		}
@@ -171,7 +171,7 @@ return {
 			provider = function()
 				return vim.bo.filetype ~= "" and vim.bo.filetype or "Plain Text"
 			end,
-			hl = { fg = "black", bold = true },
+			hl = { fg = "black", bg = "none", bold = true },
 			separator = " | ",
 		}
 
@@ -180,7 +180,7 @@ return {
 				local fmt = vim.bo.fileformat
 				return fmt:upper()
 			end,
-			hl = { fg = "grey" },
+			hl = { fg = "grey", bg = "none" },
 		}
 
 		-- Diagnostics component
@@ -208,25 +208,25 @@ return {
 					-- 0 is just another output, we can decide to print it or not!
 					return self.errors > 0 and (self.error_icon .. self.errors .. " ")
 				end,
-				hl = { fg = "diag_error" },
+				hl = { fg = "diag_error", bg = "none" },
 			},
 			{
 				provider = function(self)
 					return self.warnings > 0 and (self.warn_icon .. self.warnings .. " ")
 				end,
-				hl = { fg = "diag_warn" },
+				hl = { fg = "diag_warn", bg = "none" },
 			},
 			{
 				provider = function(self)
 					return self.info > 0 and (self.info_icon .. self.info .. " ")
 				end,
-				hl = { fg = "diag_info" },
+				hl = { fg = "diag_info", bg = "none" },
 			},
 			{
 				provider = function(self)
 					return self.hints > 0 and (self.hint_icon .. self.hints)
 				end,
-				hl = { fg = "diag_hint" },
+				hl = { fg = "diag_hint", bg = "none" },
 			},
 		}
 
@@ -239,12 +239,12 @@ return {
 					or self.status_dict.changed ~= 0
 			end,
 
-			hl = { fg = "purple" },
+			hl = { fg = "purple", bg = "none" },
 			{
 				provider = function(self)
 					return " " .. self.status_dict.head .. " "
 				end,
-				hl = { bold = true },
+				hl = { bold = true, bg = "none" },
 			},
 
 			{
@@ -252,21 +252,21 @@ return {
 					local count = self.status_dict.added or 0
 					return count > 0 and ("+" .. count)
 				end,
-				hl = { fg = "git_add" },
+				hl = { fg = "git_add", bg = "none" },
 			},
 			{
 				provider = function(self)
 					local count = self.status_dict.removed or 0
 					return count > 0 and ("-" .. count)
 				end,
-				hl = { fg = "git_del" },
+				hl = { fg = "git_del", bg = "none" },
 			},
 			{
 				provider = function(self)
 					local count = self.status_dict.changed or 0
 					return count > 0 and ("~" .. count)
 				end,
-				hl = { fg = "git_change" },
+				hl = { fg = "git_change", bg = "none" },
 			},
 
 			on_click = {
@@ -282,7 +282,7 @@ return {
 		-- Ruler component
 		local ruler = {
 			provider = "%l:%c",
-			hl = { fg = "grey" },
+			hl = { fg = "grey", bg = "none" },
 			separator = " | ",
 		}
 
@@ -297,7 +297,7 @@ return {
 				end
 				return " " .. table.concat(names, ", ")
 			end,
-			hl = { fg = "green", bold = true },
+			hl = { fg = "green", bg = "none", bold = true },
 		}
 
 		local space = { provider = "  " }
