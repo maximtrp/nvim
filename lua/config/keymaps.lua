@@ -12,15 +12,16 @@ vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts)
 vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 
 vim.keymap.set(
-  "n",
-  "<leader>fb",
-  ':lua require("telescope").extensions.file_browser.file_browser({ path = vim.fn.expand("%:p:h"), select_buffer = true })<cr>',
-  opts
+	"n",
+	"<leader>fb",
+	':lua require("telescope").extensions.file_browser.file_browser({ path = vim.fn.expand("%:p:h"), select_buffer = true })<cr>',
+	opts
 )
 vim.keymap.set("n", "<leader>fd", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
 vim.keymap.set("n", "<leader>fD", "<cmd>Telescope diagnostics<CR>", opts)
-vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files hidden=true<CR>", opts)
-vim.keymap.set("n", "<leader>fF", "<cmd>Telescope git_files<CR>", opts)
+vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", opts)
+vim.keymap.set("n", "<leader>fF", "<cmd>Telescope find_files hidden=true<CR>", opts)
+vim.keymap.set("n", "<leader>fg", "<cmd>Telescope git_files<CR>", opts)
 vim.keymap.set("n", "<leader>fs", "<cmd>Telescope lsp_document_symbols<CR>", opts)
 vim.keymap.set("n", "<leader>fS", "<cmd>Telescope lsp_workspace_symbols<CR>", opts)
 vim.keymap.set("n", "<leader>ft", "<cmd>Telescope buffers previewer=false<CR>", opts)
@@ -51,7 +52,7 @@ vim.keymap.set("n", "<leader>gb", "<cmd>Gitsigns blame_line<cr>")
 vim.keymap.set({ "n", "v" }, "<leader>gs", "<cmd>Telescope git_status<cr>")
 
 vim.keymap.set("n", "<leader>wl", function()
-  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+	print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 end, opts)
 
 --vim.keymap.set("n", "zR", require("ufo").openAllFolds)

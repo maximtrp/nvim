@@ -218,6 +218,7 @@ if vim.o.background == "light" then
 	hi("WarningMsg", { fg = light.orange })
 	hi("ErrorMsg", { fg = light.red })
 	hi("Special", { fg = light.grey })
+	hi("CmpItemKind", { fg = light.orange })
 	hi("MatchParen", { fg = light.orange })
 
 	hi("Comment", { fg = light.grey })
@@ -265,10 +266,10 @@ else
 	hi("PmenuSel", { bg = dark.grey, fg = dark.white })
 	hi("WarningMsg", { fg = dark.orange })
 	hi("ErrorMsg", { fg = dark.red })
-	hi("Special", { fg = dark.orange })
+	hi("Special", { fg = dark.grey })
+	hi("CmpItemKind", { fg = dark.orange })
 	hi("MatchParen", { fg = dark.violet })
 
-	hi("Comment", { fg = dark.grey })
 	hi("Comment", { fg = dark.grey })
 	hi("Constant", { fg = dark.purple })
 	hi("Character", { fg = dark.green })
