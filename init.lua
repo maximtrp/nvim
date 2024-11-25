@@ -1,5 +1,5 @@
-vim.cmd("colorscheme taili")
 require("config.settings")
+require("config.colorscheme").setup()
 require("config.lazy")
 require("config.file-browser")
 require("config.keymaps")

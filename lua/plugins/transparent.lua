@@ -5,4 +5,5 @@ return {
 		transparent.setup({})
 		transparent.clear_prefix("BufferLine")
 	end,
+	enabled = false,
 }
