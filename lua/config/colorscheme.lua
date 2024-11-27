@@ -19,6 +19,7 @@ M.light = {
 	grey = "#737373",
 	bright_grey = "#dadada",
 	selection = "#f59e0b",
+	black = "#3f3f3f",
 }
 
 -- Dark mode palette
@@ -40,6 +41,7 @@ M.dark = {
 	grey = "#888888",
 	bright_grey = "#444444",
 	selection = "#f59e0b",
+	black = "#3f3f3f",
 }
 
 -- Apply the colors
@@ -205,12 +207,14 @@ function M.setup()
 	set_highlight("Directory", { fg = colors.foreground, bold = true })
 	set_highlight("MsgArea", { bg = colors.bright_grey, fg = colors.foreground })
 	set_highlight("Visual", { bg = colors.bright_grey, fg = colors.foreground })
-	set_highlight("Search", { bg = colors.yellow, fg = colors.foreground })
+	set_highlight("Search", { bg = colors.selection, fg = colors.black })
 	set_highlight("Pmenu", { bg = colors.bright_grey, fg = colors.foreground })
 	set_highlight("PmenuSel", { bg = colors.selection, fg = colors.foreground })
 	set_highlight("WarningMsg", { fg = colors.orange })
 	set_highlight("ErrorMsg", { fg = colors.red })
 	set_highlight("Special", { fg = colors.grey })
+	set_highlight("CmpItemMenu", { fg = colors.foreground })
+	set_highlight("CmpItemAbbr", { fg = colors.foreground })
 	set_highlight("CmpItemKind", { fg = colors.orange })
 	set_highlight("MatchParen", { fg = colors.orange })
 	set_highlight("Conceal", { fg = colors.grey })

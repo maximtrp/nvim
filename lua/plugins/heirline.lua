@@ -123,7 +123,7 @@ return {
 			provider = function(self)
 				local filename = vim.fn.fnamemodify(self.filename, ":.")
 				if filename == "" then
-					return "[No Name]"
+					return "void"
 				end
 				if not conditions.width_percent_below(#filename, 0.5) then
 					filename = vim.fn.pathshorten(filename)
@@ -158,27 +158,61 @@ return {
 			end,
 		}
 
-		-- let's add the children to our FileNameBlock component
 		file_name_block = utils.insert(
 			file_name_block,
+			{ provider = "  " },
 			file_icon,
-			utils.insert(file_name_modifier, file_name), -- a new table where FileName is a child of FileNameModifier
+			utils.insert(file_name_modifier, file_name),
 			file_flags,
-			{ provider = "%<" } -- this means that the statusline is cut here when there's not enough space
+			{ provider = "  " },
+			{ provider = "%<" }
 		)
 
 		-- File type component
-		local file_type = {
-			provider = function()
-				return vim.bo.filetype ~= "" and vim.bo.filetype or "Plain Text"
+		-- local file_type = {
+		-- 	provider = function()
+		-- 		return vim.bo.filetype ~= "" and vim.bo.filetype or "Plain Text"
+		-- 	end,
+		-- 	hl = { fg = "black", bold = true },
+		-- }
+
+		local macro_rec = {
+			condition = function()
+				return vim.fn.reg_recording() ~= "" and vim.o.cmdheight == 0
 			end,
-			hl = { fg = "black", bold = true },
+			provider = " ",
+			hl = { fg = "orange", bold = true },
+			utils.surround({ "@", "  " }, nil, {
+				provider = function()
+					return vim.fn.reg_recording()
+				end,
+			}),
+			update = {
+				"RecordingEnter",
+				"RecordingLeave",
+			},
+		}
+
+		local search_count = {
+			condition = function()
+				return vim.v.hlsearch ~= 0 and vim.o.cmdheight == 0
+			end,
+			init = function(self)
+				local ok, search = pcall(vim.fn.searchcount)
+				if ok and search.total then
+					self.search = search
+				end
+			end,
+			provider = function(self)
+				local search = self.search
+				return string.format("[%d/%d]  ", search.current, math.min(search.total, search.maxcount))
+			end,
 		}
 
 		local file_format = {
 			provider = function()
 				local fmt = vim.bo.fileformat
-				return fmt:upper()
+				return fmt:upper() .. "  "
 			end,
 			hl = { fg = "grey" },
 		}
@@ -224,9 +258,12 @@ return {
 			},
 			{
 				provider = function(self)
-					return self.hints > 0 and (self.hint_icon .. self.hints)
+					return self.hints > 0 and (self.hint_icon .. self.hints .. " ")
 				end,
 				hl = { fg = "diag_hint" },
+			},
+			{
+				provider = " ",
 			},
 		}
 
@@ -294,28 +331,32 @@ return {
 				for i, server in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
 					table.insert(names, server.name)
 				end
-				return " " .. table.concat(names, ", ")
+				return " " .. table.concat(names, ", ") .. "  "
 			end,
 			hl = { fg = "green", bg = "none", bold = true },
+			on_click = {
+				callback = function()
+					vim.defer_fn(function()
+						vim.cmd("LspInfo")
+					end, 100)
+				end,
+				name = "heirline_lsp",
+			},
 		}
 
 		local space = { provider = "  " }
 
 		-- Statusline
 		local statusline = {
+			macro_rec,
 			mode,
-			space,
 			file_name_block,
-			space,
 			git_branch,
-			space,
 			{ provider = "%=", separator = " " },
+			search_count,
 			diagnostics,
-			space,
 			lsp_active,
-			space,
 			file_format,
-			space,
 			ruler,
 		}
 

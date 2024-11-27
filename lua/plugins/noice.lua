@@ -29,10 +29,10 @@ return {
 				},
 			},
 			mini = {
-				timeout = 5000,
+				timeout = 4000,
 				border = {
-					style = "rounded",
-					padding = { 1, 2 },
+					--style = "rounded",
+					padding = { 1, 1 },
 				},
 			},
 			-- popup = {
