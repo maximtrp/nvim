@@ -49,8 +49,24 @@ return {
 			-- },
 		},
 		lsp = {
+			progress = {
+				enabled = true,
+			},
 			hover = {
 				silent = true,
+			},
+		},
+		routes = {
+			{
+				filter = {
+					event = "lsp",
+					kind = "progress",
+					cond = function(message)
+						local client = vim.tbl_get(message.opts, "progress", "client")
+						return client == "dartls"
+					end,
+				},
+				opts = { skip = true },
 			},
 		},
 	},

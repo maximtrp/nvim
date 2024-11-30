@@ -32,7 +32,7 @@ vim.keymap.set("n", "<leader>gr", "<cmd>Telescope lsp_references<cr>", opts)
 vim.keymap.set("n", "<leader>gd", "<cmd>Telescope lsp_definitions", opts)
 vim.keymap.set("n", "<leader>gi", "<cmd>Telescope lsp_implementations", opts)
 
-vim.keymap.set("n", "<leader>l", "<cmd>Lazy update<cr>", opts)
+vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>", opts)
 
 vim.keymap.set({ "v", "n" }, "<leader>y", '"+y', opts)
 vim.keymap.set({ "v", "n" }, "<leader>d", '"+d', opts)

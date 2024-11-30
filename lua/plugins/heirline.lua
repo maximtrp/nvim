@@ -1,6 +1,6 @@
 return {
 	"rebelot/heirline.nvim",
-	event = "VeryLazy",
+	event = "UIEnter",
 	dependencies = { "lewis6991/gitsigns.nvim" },
 	config = function()
 		local heirline = require("heirline")
@@ -10,7 +10,7 @@ return {
 		-- Define colors
 		local colors = {
 			none = utils.get_highlight("Normal").bg,
-			black = utils.get_highlight("Normal").fg,
+			black = utils.get_highlight("Search").fg,
 			red = utils.get_highlight("DiagnosticError").fg,
 			green = utils.get_highlight("String").fg,
 			blue = utils.get_highlight("Function").fg,
@@ -214,7 +214,7 @@ return {
 				local fmt = vim.bo.fileformat
 				return fmt:upper() .. "  "
 			end,
-			hl = { fg = "grey" },
+			hl = { fg = "black" },
 		}
 
 		-- Diagnostics component

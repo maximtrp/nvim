@@ -39,7 +39,7 @@ M.dark = {
 	orange = "#d5986d",
 	brown = "#b6897c",
 	grey = "#888888",
-	bright_grey = "#444444",
+	bright_grey = "#333333",
 	selection = "#f59e0b",
 	black = "#3f3f3f",
 }
@@ -203,13 +203,15 @@ function M.setup()
 	set_highlight("BufferLineBuffer", { fg = colors.grey, bold = true })
 	set_highlight("BufferLineBufferSelected", { fg = colors.foreground, bold = true })
 	set_highlight("BufferLineCloseButtonSelected", { fg = colors.red })
+	set_highlight("IblIndent", { fg = colors.bright_grey })
+	set_highlight("IblScope", { fg = colors.grey })
 
 	set_highlight("Directory", { fg = colors.foreground, bold = true })
 	set_highlight("MsgArea", { bg = colors.bright_grey, fg = colors.foreground })
 	set_highlight("Visual", { bg = colors.bright_grey, fg = colors.foreground })
 	set_highlight("Search", { bg = colors.selection, fg = colors.black })
 	set_highlight("Pmenu", { bg = colors.bright_grey, fg = colors.foreground })
-	set_highlight("PmenuSel", { bg = colors.selection, fg = colors.foreground })
+	set_highlight("PmenuSel", { bg = colors.selection, fg = colors.black })
 	set_highlight("WarningMsg", { fg = colors.orange })
 	set_highlight("ErrorMsg", { fg = colors.red })
 	set_highlight("Special", { fg = colors.grey })
@@ -243,8 +245,6 @@ function M.setup()
 	set_highlight("Type", { fg = colors.teal })
 	set_highlight("Underlined", { underline = true })
 	set_highlight("Ignore", {})
-	set_highlight("IblIndent", { fg = colors.bright_grey })
-	set_highlight("IblScope", { fg = colors.grey })
 end
 
 -- Auto-reload colorscheme when background changes

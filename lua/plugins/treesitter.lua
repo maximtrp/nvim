@@ -1,6 +1,6 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
-	event = "VeryLazy",
+	event = "UIEnter",
 	config = function()
 		local configs = require("nvim-treesitter.configs")
 		configs.setup({
