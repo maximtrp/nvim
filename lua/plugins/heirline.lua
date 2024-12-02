@@ -10,7 +10,6 @@ return {
 		-- Define colors
 		local colors = {
 			none = utils.get_highlight("Normal").bg,
-			black = utils.get_highlight("Search").fg,
 			red = utils.get_highlight("DiagnosticError").fg,
 			green = utils.get_highlight("String").fg,
 			blue = utils.get_highlight("Function").fg,
@@ -130,7 +129,7 @@ return {
 				end
 				return filename
 			end,
-			hl = { fg = "black", bold = true },
+			hl = { bold = true },
 		}
 
 		local file_flags = {
@@ -153,7 +152,7 @@ return {
 		local file_name_modifier = {
 			hl = function()
 				if vim.bo.modified then
-					return { fg = "black", bold = true, italic = true, force = true }
+					return { bold = true, italic = true, force = true }
 				end
 			end,
 		}
@@ -173,7 +172,7 @@ return {
 		-- 	provider = function()
 		-- 		return vim.bo.filetype ~= "" and vim.bo.filetype or "Plain Text"
 		-- 	end,
-		-- 	hl = { fg = "black", bold = true },
+		-- 	hl = { fg = "foreground", bold = true },
 		-- }
 
 		local macro_rec = {
@@ -214,7 +213,7 @@ return {
 				local fmt = vim.bo.fileformat
 				return fmt:upper() .. "  "
 			end,
-			hl = { fg = "black" },
+			hl = {},
 		}
 
 		-- Diagnostics component
@@ -343,8 +342,6 @@ return {
 				name = "heirline_lsp",
 			},
 		}
-
-		local space = { provider = "  " }
 
 		-- Statusline
 		local statusline = {
