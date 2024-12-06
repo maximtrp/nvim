@@ -21,6 +21,29 @@ return {
 				{ name = "buffer" },
 				{ name = "path" },
 			},
+			window = {
+				documentation = {
+					border = "rounded",
+					max_width = 30,
+					max_height = 20,
+				},
+			},
+			formatting = {
+				format = function(entry, item)
+					local widths = {
+						abbr = 30,
+						menu = 30,
+					}
+
+					for key, width in pairs(widths) do
+						if item[key] and vim.fn.strdisplaywidth(item[key]) > width then
+							item[key] = vim.fn.strcharpart(item[key], 0, width - 1) .. "…"
+						end
+					end
+
+					return item
+				end,
+			},
 		})
 	end,
 }

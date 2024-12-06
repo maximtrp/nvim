@@ -9,6 +9,7 @@ return {
 
 		-- Define colors
 		local colors = {
+
 			none = utils.get_highlight("Normal").bg,
 			red = utils.get_highlight("DiagnosticError").fg,
 			green = utils.get_highlight("String").fg,
@@ -204,14 +205,19 @@ return {
 			end,
 			provider = function(self)
 				local search = self.search
-				return string.format("[%d/%d]  ", search.current, math.min(search.total, search.maxcount))
+				return string.format(" %d/%d  ", search.current, math.min(search.total, search.maxcount))
 			end,
 		}
 
 		local file_format = {
 			provider = function()
 				local fmt = vim.bo.fileformat
-				return fmt:upper() .. "  "
+				local icons = {
+					mac = " ",
+					unix = " ",
+					dos = " ",
+				}
+				return icons[fmt] .. " "
 			end,
 			hl = {},
 		}
@@ -278,7 +284,7 @@ return {
 			hl = { fg = "purple" },
 			{
 				provider = function(self)
-					return " " .. self.status_dict.head .. " "
+					return " " .. self.status_dict.head .. "  "
 				end,
 				hl = { bold = true },
 			},
@@ -286,21 +292,21 @@ return {
 			{
 				provider = function(self)
 					local count = self.status_dict.added or 0
-					return count > 0 and ("+" .. count)
+					return count > 0 and (" " .. count .. " ")
 				end,
 				hl = { fg = "git_add" },
 			},
 			{
 				provider = function(self)
 					local count = self.status_dict.removed or 0
-					return count > 0 and ("-" .. count)
+					return count > 0 and (" " .. count .. " ")
 				end,
 				hl = { fg = "git_del" },
 			},
 			{
 				provider = function(self)
 					local count = self.status_dict.changed or 0
-					return count > 0 and ("~" .. count)
+					return count > 0 and ("󰤌 " .. count .. " ")
 				end,
 				hl = { fg = "git_change" },
 			},
@@ -330,7 +336,7 @@ return {
 				for i, server in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
 					table.insert(names, server.name)
 				end
-				return " " .. table.concat(names, ", ") .. "  "
+				return " " .. table.concat(names, ", ") .. " "
 			end,
 			hl = { fg = "green", bg = "none", bold = true },
 			on_click = {

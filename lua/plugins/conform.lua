@@ -27,6 +27,8 @@ return {
 				typescriptreact = { "prettierd" },
 				vue = { "prettierd" },
 				css = { "prettierd" },
+				svg = { "xmllint" },
+				xml = { "xmllint" },
 				html = { "prettierd" },
 				json = { "prettierd" },
 				yaml = { "prettierd" },

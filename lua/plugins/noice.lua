@@ -2,7 +2,14 @@ return {
 	"folke/noice.nvim",
 	opts = {
 		timeout = 5000,
+		notify = {
+			enabled = true,
+			view = "notify",
+		},
 		views = {
+			notify = {
+				max_width = 40,
+			},
 			cmdline_popup = {
 				border = {
 					style = "rounded",
@@ -11,9 +18,17 @@ return {
 				filter_options = {},
 			},
 			hover = {
+				relative = "cursor",
+				position = {
+					row = 2,
+					col = 2,
+				},
+				size = {
+					max_width = 60,
+				},
 				border = {
 					style = "rounded",
-					padding = { 1, 2 },
+					padding = { 0, 1 },
 				},
 			},
 			cmdline = {
@@ -30,23 +45,26 @@ return {
 			},
 			mini = {
 				timeout = 4000,
+				size = {
+					max_width = 60,
+				},
 				border = {
 					--style = "rounded",
-					padding = { 1, 1 },
+					padding = { 0, 1 },
 				},
 			},
-			-- popup = {
-			-- 	border = {
-			-- 		style = "rounded",
-			-- 		padding = { 1, 2 },
-			-- 	},
-			-- },
-			-- popupmenu = {
-			-- 	border border= {
-			-- 		style = "rounded",
-			-- 		padding = { 1, 2 },
-			-- 	},
-			-- },
+			popup = {
+				size = {
+					max_width = 40,
+					max_height = 10,
+				},
+			},
+			popupmenu = {
+				size = {
+					max_width = 60,
+					max_height = 10,
+				},
+			},
 		},
 		lsp = {
 			progress = {
