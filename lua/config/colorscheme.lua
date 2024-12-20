@@ -203,6 +203,7 @@ function M.setup()
 	set_highlight("BufferLineBuffer", { fg = colors.grey, bold = true })
 	set_highlight("BufferLineBufferSelected", { fg = colors.foreground, bold = true })
 	set_highlight("BufferLineCloseButtonSelected", { fg = colors.red })
+	set_highlight("@ibl.indent.char.1", { link = "IblIndent" })
 	set_highlight("IblIndent", { fg = colors.bright_grey })
 	set_highlight("IblScope", { fg = colors.grey })
 

@@ -14,14 +14,14 @@ vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 vim.keymap.set(
 	"n",
 	"<leader>fb",
-	':lua require("telescope").extensions.file_browser.file_browser({ path = vim.fn.expand("%:p:h"), select_buffer = true })<cr>',
+	':lua require("telescope").extensions.file_browser.file_browser({ path = vim.fn.expand("%:p:h"), select_buffer = true, grouped = true, no_ignore = true })<cr>',
 	opts
 )
 vim.keymap.set("n", "<leader>fd", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
 vim.keymap.set("n", "<leader>fD", "<cmd>Telescope diagnostics<CR>", opts)
+vim.keymap.set("n", "<leader>fF", "<cmd>Telescope find_files hidden=true no_ignore=true<CR>", opts)
 vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", opts)
-vim.keymap.set("n", "<leader>fF", "<cmd>Telescope find_files hidden=true<CR>", opts)
-vim.keymap.set("n", "<leader>fg", "<cmd>Telescope git_files<CR>", opts)
+vim.keymap.set("n", "<leader>fg", "<cmd>Telescope git_files hidden=true<CR>", opts)
 vim.keymap.set("n", "<leader>fs", "<cmd>Telescope lsp_document_symbols<CR>", opts)
 vim.keymap.set("n", "<leader>fS", "<cmd>Telescope lsp_workspace_symbols<CR>", opts)
 vim.keymap.set("n", "<leader>ft", "<cmd>Telescope buffers previewer=false<CR>", opts)
@@ -29,8 +29,8 @@ vim.keymap.set("n", "<leader>fw", "<cmd>Telescope live_grep<CR>", opts)
 vim.keymap.set("n", "<leader>fW", "<cmd>Telescope grep_string<CR>", opts)
 vim.keymap.set("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", opts)
 vim.keymap.set("n", "<leader>gr", "<cmd>Telescope lsp_references<cr>", opts)
-vim.keymap.set("n", "<leader>gd", "<cmd>Telescope lsp_definitions", opts)
-vim.keymap.set("n", "<leader>gi", "<cmd>Telescope lsp_implementations", opts)
+vim.keymap.set("n", "<leader>gd", "<cmd>Telescope lsp_definitions<cr>", opts)
+vim.keymap.set("n", "<leader>gi", "<cmd>Telescope lsp_implementations<cr>", opts)
 
 vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>", opts)
 
