@@ -9,6 +9,7 @@ return {
 			lineFoldingOnly = true,
 		}
 
+		lspconfig.clangd.setup({})
 		lspconfig.ts_ls.setup({
 			capabilities = capabilities,
 			init_options = {
