@@ -6,7 +6,7 @@ vim.keymap.set("n", "<up>", "gk")
 
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover, opts)
+-- vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover, opts)
 vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, opts)
 vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts)
 vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
