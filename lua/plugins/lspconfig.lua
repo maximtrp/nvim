@@ -37,6 +37,8 @@ return {
 			capabilities = capabilities,
 		})
 
+		lspconfig.biome.setup({})
+
 		lspconfig.eslint.setup({})
 
 		lspconfig.svelte.setup({ capabilities = capabilities })
