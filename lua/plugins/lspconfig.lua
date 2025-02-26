@@ -10,6 +10,7 @@ return {
 		}
 
 		lspconfig.clangd.setup({})
+
 		lspconfig.ts_ls.setup({
 			capabilities = capabilities,
 			init_options = {
@@ -39,6 +40,8 @@ return {
 		lspconfig.eslint.setup({})
 
 		lspconfig.svelte.setup({ capabilities = capabilities })
+
+		lspconfig.tailwindcss.setup({})
 
 		lspconfig.basedpyright.setup({ capabilities = capabilities })
 

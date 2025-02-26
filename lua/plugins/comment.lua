@@ -4,7 +4,7 @@ return {
 	opts = {
 		toggler = {
 			line = "gcc",
-			block = "gcb",
+			block = "gbc",
 		},
 		opleader = {
 			line = "cc",
