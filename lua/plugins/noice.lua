@@ -13,7 +13,7 @@ return {
 			cmdline_popup = {
 				border = {
 					style = "rounded",
-					padding = { 1, 2 },
+					padding = { 0, 1 },
 				},
 				filter_options = {},
 			},

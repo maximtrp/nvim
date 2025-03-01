@@ -43,7 +43,20 @@ return {
 
 		lspconfig.svelte.setup({ capabilities = capabilities })
 
-		lspconfig.tailwindcss.setup({})
+		lspconfig.tailwindcss.setup({
+			root_dir = function(fname)
+				return lspconfig.util.root_pattern(
+					"tailwind.config.js",
+					"tailwind.config.cjs",
+					"tailwind.config.mjs",
+					"tailwind.config.ts",
+					"postcss.config.js",
+					"postcss.config.cjs",
+					"postcss.config.mjs",
+					"postcss.config.ts"
+				)(fname)
+			end,
+		})
 
 		lspconfig.basedpyright.setup({ capabilities = capabilities })
 
