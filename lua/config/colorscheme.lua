@@ -25,7 +25,7 @@ M.light = {
 -- Dark mode palette
 M.dark = {
 	foreground = "#d4d4d4",
-	background = "#3F3F3F",
+	background = "#282a2c",
 	red = "#da5858",
 	light_red = "#fb7185",
 	blue = "#5288e0",
@@ -198,7 +198,7 @@ function M.setup()
 	set_highlight("Normal", { fg = colors.foreground, bg = "none" })
 	set_highlight("NormalNC", { fg = colors.grey, bg = "none" })
 	set_highlight("NormalFloat", { bg = colors.background, fg = colors.foreground })
-	set_highlight("NoiceCmdlinePopup", { bg = colors.bright_grey, fg = colors.foreground })
+	set_highlight("NoiceCmdlinePopup", { bg = colors.background, fg = colors.foreground })
 	set_highlight("Title", { fg = colors.foreground, bold = true })
 	set_highlight("LazyGitFloat", { bg = colors.background, fg = colors.foreground })
 	set_highlight("LazyGitBorder", { bg = colors.background, fg = colors.foreground })
@@ -211,7 +211,7 @@ function M.setup()
 
 	set_highlight("Directory", { fg = colors.foreground, bold = true })
 	set_highlight("MsgArea", { bg = colors.bright_grey, fg = colors.foreground })
-	set_highlight("Visual", { bg = colors.background, fg = colors.foreground })
+	set_highlight("Visual", { bg = colors.bright_grey, fg = colors.foreground })
 	set_highlight("LazyButtonActive", { bg = colors.yellow, fg = colors.black })
 	set_highlight("YankHighlight", { bg = colors.yellow, fg = colors.black })
 	set_highlight("Search", { bg = colors.selection, fg = colors.black })
@@ -228,7 +228,7 @@ function M.setup()
 	set_highlight("MatchParen", { fg = colors.orange })
 	set_highlight("Conceal", { fg = colors.grey })
 	set_highlight("NonText", { fg = colors.grey })
-	set_highlight("TelescopeNormal", { bg = colors.bright_grey, fg = colors.foreground })
+	set_highlight("TelescopeNormal", { bg = colors.background, fg = colors.foreground })
 
 	set_highlight("Comment", { fg = colors.grey })
 	set_highlight("Constant", { fg = colors.purple })

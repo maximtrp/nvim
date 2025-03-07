@@ -47,6 +47,7 @@ vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 
 vim.keymap.set("n", "<leader>o", "<cmd>Outline<CR>")
+vim.keymap.set("n", "<leader>t", "<cmd>Trouble diagnostics<CR>")
 
 vim.keymap.set("n", "<leader>gb", "<cmd>Gitsigns blame_line<cr>")
 vim.keymap.set({ "n", "v" }, "<leader>gs", "<cmd>Telescope git_status<cr>")

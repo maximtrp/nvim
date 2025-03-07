@@ -13,6 +13,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	pattern = "*",
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "qf,trouble",
+	callback = function()
+		vim.opt_local.statusline = " %f%=%l:%L "
+	end,
+})
+
 -- vim.lsp.handlers["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
 -- 	if vim.api.nvim_get_mode().mode == "i" then
 -- 		return
