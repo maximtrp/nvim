@@ -14,9 +14,16 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = "qf,trouble",
+	pattern = "qf",
 	callback = function()
-		vim.opt_local.statusline = " %f%=%l:%L "
+		vim.opt_local.statusline = "  %f%=%l:%L "
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "trouble,lazygit",
+	callback = function()
+		vim.opt_local.statusline = "  "
 	end,
 })
 

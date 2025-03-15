@@ -58,7 +58,15 @@ return {
 			end,
 		})
 
-		lspconfig.basedpyright.setup({ capabilities = capabilities })
+		-- lspconfig.pyright.setup({ capabilities = capabilities })
+		lspconfig.pylsp.setup({
+			capabilities = capabilities,
+			settings = {
+				pylsp = {
+					plugins = { mypy = {} },
+				},
+			},
+		})
 
 		lspconfig.ruff.setup({ capabilities = capabilities })
 

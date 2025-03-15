@@ -17,30 +17,32 @@ M.light = {
 	orange = "#c9793c",
 	brown = "#b06933",
 	grey = "#737373",
-	bright_grey = "#dadada",
-	selection = "#f59e0b",
+	bright_grey = "#dddddd",
+	selection = "#fde68a",
+	cur_selection = "#f59e0b",
 	black = "#3f3f3f",
 }
 
 -- Dark mode palette
 M.dark = {
 	foreground = "#d4d4d4",
-	background = "#282a2c",
-	red = "#da5858",
+	background = "#262626",
+	red = "#d65c5c",
 	light_red = "#fb7185",
-	blue = "#5288e0",
-	green = "#339958",
-	purple = "#b259c0",
-	violet = "#9987c5",
+	blue = "#749CDC", -- "#5288e0",
+	green = "#43B16C", -- "#339958",
+	purple = "#CA81D5", -- "#b259c0",
+	violet = "#A68FDB", -- "#9987c5",
 	yellow = "#d9ac26",
 	amber = "#fbbf24",
 	cyan = "#48bfe3",
-	teal = "#22c3b0",
-	orange = "#d5986d",
+	teal = "#14B8A6", -- "#22c3b0",
+	orange = "#CB8E62", -- "#d5986d",
 	brown = "#b6897c",
 	grey = "#888888",
-	bright_grey = "#333333",
-	selection = "#f59e0b",
+	bright_grey = "#363636",
+	selection = "#92400e",
+	cur_selection = "#f59e0b",
 	black = "#3f3f3f",
 }
 
@@ -57,8 +59,8 @@ function M.setup()
 	local bg = vim.o.background
 	local colors = (bg == "light") and M.light or M.dark
 
-	set_highlight("StatusLine", { link = "Normal" })
-	set_highlight("StatusLineNC", { link = "NormalNC" })
+	set_highlight("StatusLine", { bg = colors.background })
+	set_highlight("StatusLineNC", { bg = colors.background })
 	set_highlight("Conditional", { link = "Conditional" })
 	set_highlight("Repeat", { link = "Conditional" })
 	set_highlight("Label", { link = "Statement" })
@@ -72,7 +74,6 @@ function M.setup()
 	set_highlight("Structure", { link = "Type" })
 	set_highlight("Typedef", { link = "Type" })
 	set_highlight("SpecialChar", { link = "Special" })
-	set_highlight("Delimiter", { link = "Special" })
 	set_highlight("SpecialComment", { link = "Special" })
 	set_highlight("Debug", { link = "Special" })
 
@@ -148,6 +149,7 @@ function M.setup()
 
 	set_highlight("@variable", { link = "Identifier" })
 	set_highlight("@type", { link = "Type" })
+	set_highlight("@type.css", { fg = colors.orange })
 	set_highlight("@type.definition", { link = "Typedef" })
 	set_highlight("@type.builtin", { link = "Builtin" })
 	set_highlight("@module", { link = "Identifier" })
@@ -155,6 +157,7 @@ function M.setup()
 	set_highlight("@keyword.directive", { link = "PreProc" })
 	set_highlight("@keyword.debug", { link = "Debug" })
 	set_highlight("@tag", { link = "Tag" })
+	set_highlight("@tag.css", { fg = colors.red })
 	set_highlight("@tag.attribute", { link = "TagAttribute" })
 	set_highlight("@tag.delimiter", { link = "TagDelimiter" })
 	set_highlight("@tag.builtin", { link = "Tag" })
@@ -206,20 +209,22 @@ function M.setup()
 	set_highlight("BufferLineBufferSelected", { fg = colors.foreground, bold = true })
 	set_highlight("BufferLineCloseButtonSelected", { fg = colors.red })
 	set_highlight("@ibl.indent.char.1", { link = "IblIndent" })
-	set_highlight("IblIndent", { fg = colors.bright_grey })
+	set_highlight("IblIndent", { fg = colors.background })
 	set_highlight("IblScope", { fg = colors.grey })
 
 	set_highlight("Directory", { fg = colors.foreground, bold = true })
-	set_highlight("MsgArea", { bg = colors.bright_grey, fg = colors.foreground })
+	set_highlight("MsgArea", { bg = colors.background, fg = colors.foreground })
 	set_highlight("Visual", { bg = colors.bright_grey, fg = colors.foreground })
 	set_highlight("LazyButtonActive", { bg = colors.yellow, fg = colors.black })
 	set_highlight("YankHighlight", { bg = colors.yellow, fg = colors.black })
-	set_highlight("Search", { bg = colors.selection, fg = colors.black })
+	set_highlight("Search", { bg = colors.selection, fg = colors.foreground })
+	set_highlight("CurSearch", { bg = colors.cur_selection, fg = colors.black })
+	set_highlight("IncSearch", { bg = colors.cur_selection, fg = colors.black })
 	set_highlight("Pmenu", { bg = colors.bright_grey, fg = colors.foreground })
-	set_highlight("PmenuSel", { bg = colors.selection, fg = colors.black })
+	set_highlight("PmenuSel", { bg = colors.selection, fg = colors.foreground })
 	set_highlight("WarningMsg", { fg = colors.orange })
 	set_highlight("ErrorMsg", { fg = colors.red })
-	set_highlight("Special", { fg = colors.grey })
+	set_highlight("Special", { fg = colors.teal })
 	set_highlight("CmpItemMenu", { fg = colors.foreground })
 	set_highlight("CmpItemAbbr", { fg = colors.foreground })
 	set_highlight("CmpItemAbbrMatch", { fg = colors.red })
@@ -229,6 +234,7 @@ function M.setup()
 	set_highlight("Conceal", { fg = colors.grey })
 	set_highlight("NonText", { fg = colors.grey })
 	set_highlight("TelescopeNormal", { bg = colors.background, fg = colors.foreground })
+	set_highlight("TelescopeMatching", { fg = colors.red, bold = true })
 
 	set_highlight("Comment", { fg = colors.grey })
 	set_highlight("Constant", { fg = colors.purple })
@@ -242,7 +248,8 @@ function M.setup()
 	set_highlight("CSSprop", { fg = colors.teal })
 	set_highlight("Function", { fg = colors.blue })
 	set_highlight("String", { fg = colors.green })
-	set_highlight("Tag", { fg = colors.red })
+	set_highlight("Tag", { fg = colors.teal })
+	set_highlight("Delimiter", { fg = colors.grey })
 	set_highlight("TagDelimiter", { fg = colors.grey })
 	set_highlight("TagAttribute", { fg = colors.orange })
 	set_highlight("Identifier", { fg = colors.foreground })

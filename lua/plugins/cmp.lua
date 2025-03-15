@@ -20,14 +20,14 @@ return {
 				["<S-Tab>"] = cmp.mapping.select_prev_item(),
 			},
 			sources = {
-				{ name = "nvim_lsp" },
-				{ name = "buffer" },
-				{ name = "path" },
+				{ name = "nvim_lsp", priority = 1000 },
+				{ name = "buffer", priority = 500 },
+				{ name = "path", priority = 250 },
 			},
 			window = {
 				documentation = {
 					border = "rounded",
-					max_width = 30,
+					max_width = 40,
 					max_height = 20,
 				},
 			},

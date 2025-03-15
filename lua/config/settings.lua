@@ -20,3 +20,4 @@ vim.o.foldenable = true
 vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 vim.o.undofile = true
 vim.o.updatetime = 250
+vim.o.pumheight = 15
