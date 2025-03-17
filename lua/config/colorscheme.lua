@@ -4,20 +4,15 @@ local M = {}
 M.light = {
 	foreground = "#3f3f3f",
 	background = "#f0f0f0",
-	red = "#b51c42",
-	light_red = "#f43f5e",
-	blue = "#2656d9",
-	green = "#4d8019",
-	purple = "#ba52e0",
-	yellow = "#cfcf32",
-	violet = "#774bc3",
-	amber = "#b45309",
-	cyan = "#0891b2",
-	teal = "#0d9488",
-	orange = "#c9793c",
-	brown = "#b06933",
-	grey = "#737373",
-	bright_grey = "#dddddd",
+	red = "#B42D4F",
+	blue = "#3158C4",
+	green = "#247B45",
+	purple = "#862AA7",
+	cyan = "#077692",
+	teal = "#1F7A6F",
+	orange = "#A7602A",
+	grey = "#6B6B6B",
+	bright_grey = "#cccccc",
 	selection = "#fde68a",
 	cur_selection = "#f59e0b",
 	black = "#3f3f3f",
@@ -27,18 +22,13 @@ M.light = {
 M.dark = {
 	foreground = "#d4d4d4",
 	background = "#262626",
-	red = "#d65c5c",
-	light_red = "#fb7185",
+	red = "#E77474", -- "#d65c5c",
 	blue = "#749CDC", -- "#5288e0",
-	green = "#43B16C", -- "#339958",
-	purple = "#CA81D5", -- "#b259c0",
-	violet = "#A68FDB", -- "#9987c5",
-	yellow = "#d9ac26",
-	amber = "#fbbf24",
-	cyan = "#48bfe3",
-	teal = "#14B8A6", -- "#22c3b0",
-	orange = "#CB8E62", -- "#d5986d",
-	brown = "#b6897c",
+	green = "#48A86B", -- "#339958",
+	purple = "#C37ECE", -- "#b259c0",
+	cyan = "#4BA7C3", -- "#48bfe3",
+	teal = "#39AC9F", -- "#22c3b0",
+	orange = "#BD8A65", -- "#d5986d",
 	grey = "#888888",
 	bright_grey = "#363636",
 	selection = "#92400e",
@@ -134,6 +124,8 @@ function M.setup()
 	set_highlight("@variable.parameter.builtin", { link = "Special" })
 	set_highlight("@variable.member", { link = "Member" })
 	set_highlight("@property", { link = "Identifier" })
+	set_highlight("@property.css", { link = "CSSprop" })
+	set_highlight("@property.dart", { link = "Member" })
 	set_highlight("@attribute", { link = "Macro" })
 	set_highlight("@attribute.builtin", { link = "Special" })
 	set_highlight("@constructor", { link = "Special" })
@@ -149,7 +141,7 @@ function M.setup()
 
 	set_highlight("@variable", { link = "Identifier" })
 	set_highlight("@type", { link = "Type" })
-	set_highlight("@type.css", { fg = colors.orange })
+	set_highlight("@type.css", { link = "Parameter" })
 	set_highlight("@type.definition", { link = "Typedef" })
 	set_highlight("@type.builtin", { link = "Builtin" })
 	set_highlight("@module", { link = "Identifier" })
@@ -157,11 +149,10 @@ function M.setup()
 	set_highlight("@keyword.directive", { link = "PreProc" })
 	set_highlight("@keyword.debug", { link = "Debug" })
 	set_highlight("@tag", { link = "Tag" })
-	set_highlight("@tag.css", { fg = colors.red })
+	set_highlight("@tag.css", { link = "CSStype" })
 	set_highlight("@tag.attribute", { link = "TagAttribute" })
 	set_highlight("@tag.delimiter", { link = "TagDelimiter" })
 	set_highlight("@tag.builtin", { link = "Tag" })
-	set_highlight("@property.css", { link = "CSSprop" })
 
 	-- LSP semantic tokens
 	set_highlight("@lsp.type.class", { link = "Structure" })
@@ -200,11 +191,13 @@ function M.setup()
 
 	set_highlight("Normal", { fg = colors.foreground, bg = "none" })
 	set_highlight("NormalNC", { fg = colors.grey, bg = "none" })
-	set_highlight("NormalFloat", { bg = colors.background, fg = colors.foreground })
+	set_highlight("NormalFloat", { bg = colors.background, fg = colors.grey })
 	set_highlight("NoiceCmdlinePopup", { bg = colors.background, fg = colors.foreground })
 	set_highlight("Title", { fg = colors.foreground, bold = true })
+	set_highlight("LazyGitBorder", { bg = colors.background, fg = colors.grey })
 	set_highlight("LazyGitFloat", { bg = colors.background, fg = colors.foreground })
-	set_highlight("LazyGitBorder", { bg = colors.background, fg = colors.foreground })
+	set_highlight("FloatBorder", { bg = colors.background, fg = colors.grey })
+	set_highlight("TelescopeBorder", { bg = colors.background, fg = colors.grey })
 	set_highlight("BufferLineBuffer", { fg = colors.grey, bold = true })
 	set_highlight("BufferLineBufferSelected", { fg = colors.foreground, bold = true })
 	set_highlight("BufferLineCloseButtonSelected", { fg = colors.red })
@@ -215,8 +208,8 @@ function M.setup()
 	set_highlight("Directory", { fg = colors.foreground, bold = true })
 	set_highlight("MsgArea", { bg = colors.background, fg = colors.foreground })
 	set_highlight("Visual", { bg = colors.bright_grey, fg = colors.foreground })
-	set_highlight("LazyButtonActive", { bg = colors.yellow, fg = colors.black })
-	set_highlight("YankHighlight", { bg = colors.yellow, fg = colors.black })
+	set_highlight("LazyButtonActive", { bg = colors.orange, fg = colors.black })
+	set_highlight("YankHighlight", { bg = colors.orange, fg = colors.black })
 	set_highlight("Search", { bg = colors.selection, fg = colors.foreground })
 	set_highlight("CurSearch", { bg = colors.cur_selection, fg = colors.black })
 	set_highlight("IncSearch", { bg = colors.cur_selection, fg = colors.black })
@@ -236,14 +229,15 @@ function M.setup()
 	set_highlight("TelescopeNormal", { bg = colors.background, fg = colors.foreground })
 	set_highlight("TelescopeMatching", { fg = colors.red, bold = true })
 
+	set_highlight("Identifier", { fg = colors.foreground })
 	set_highlight("Comment", { fg = colors.grey })
 	set_highlight("Constant", { fg = colors.purple })
 	set_highlight("Character", { fg = colors.green })
-	set_highlight("Boolean", { fg = colors.purple })
-	set_highlight("Member", { fg = colors.violet })
-	set_highlight("Parameter", { fg = colors.brown })
+	set_highlight("Boolean", { fg = colors.cyan })
+	set_highlight("Member", { fg = colors.purple })
+	set_highlight("Parameter", { fg = colors.orange })
 	set_highlight("Number", { fg = colors.cyan })
-	set_highlight("Builtin", { fg = colors.teal })
+	set_highlight("Builtin", { fg = colors.cyan })
 	set_highlight("CSStype", { fg = colors.red })
 	set_highlight("CSSprop", { fg = colors.teal })
 	set_highlight("Function", { fg = colors.blue })
@@ -252,7 +246,6 @@ function M.setup()
 	set_highlight("Delimiter", { fg = colors.grey })
 	set_highlight("TagDelimiter", { fg = colors.grey })
 	set_highlight("TagAttribute", { fg = colors.orange })
-	set_highlight("Identifier", { fg = colors.foreground })
 	set_highlight("Statement", { fg = colors.red })
 	set_highlight("Operator", { fg = colors.orange })
 	set_highlight("Conditional", { fg = colors.red, bold = true })

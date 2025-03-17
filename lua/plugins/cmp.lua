@@ -9,6 +9,7 @@ return {
 	},
 	config = function()
 		local cmp = require("cmp")
+		local compare = cmp.config.compare
 		cmp.setup({
 			completion = {
 				autocomplete = false,
@@ -20,9 +21,19 @@ return {
 				["<S-Tab>"] = cmp.mapping.select_prev_item(),
 			},
 			sources = {
-				{ name = "nvim_lsp", priority = 1000 },
-				{ name = "buffer", priority = 500 },
-				{ name = "path", priority = 250 },
+				{ name = "nvim_lsp", priority = 8 },
+				{ name = "buffer", priority = 4 },
+				{ name = "path", priority = 1 },
+			},
+			sorting = {
+				priority_weight = 1.0,
+				comparators = {
+					compare.score,
+					compare.locality,
+					compare.recently_used,
+					compare.offset,
+					compare.order,
+				},
 			},
 			window = {
 				documentation = {

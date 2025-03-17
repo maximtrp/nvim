@@ -63,7 +63,15 @@ return {
 			capabilities = capabilities,
 			settings = {
 				pylsp = {
-					plugins = { mypy = {} },
+					plugins = {
+						mypy = { enabled = true },
+						mccabe = { enabled = false },
+						pycodestyle = { enabled = false },
+						pydocstyle = { enabled = false },
+						pyflakes = { enabled = false },
+						flake8 = { enabled = false },
+						pylint = { enabled = false },
+					},
 				},
 			},
 		})
