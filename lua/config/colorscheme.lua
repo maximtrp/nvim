@@ -253,6 +253,7 @@ function M.setup()
 	set_highlight("Type", { fg = colors.teal })
 	set_highlight("Underlined", { underline = true })
 	set_highlight("Ignore", {})
+	set_highlight("Bold", { bold = true })
 end
 
 -- Auto-reload colorscheme when background changes

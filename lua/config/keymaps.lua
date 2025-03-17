@@ -17,6 +17,7 @@ vim.keymap.set(
 	':lua require("telescope").extensions.file_browser.file_browser({ path = vim.fn.expand("%:p:h"), select_buffer = true, grouped = true, no_ignore = true })<cr>',
 	opts
 )
+vim.keymap.set("n", "<leader>r", "<cmd>Telescope neoclip<cr>", opts)
 vim.keymap.set("n", "<leader>fd", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
 vim.keymap.set("n", "<leader>fD", "<cmd>Telescope diagnostics<CR>", opts)
 vim.keymap.set("n", "<leader>fF", "<cmd>Telescope find_files hidden=true no_ignore=true<CR>", opts)

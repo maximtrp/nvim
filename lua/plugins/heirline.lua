@@ -76,13 +76,13 @@ return {
 					mode_colors = {
 						n = "blue",
 						i = "green",
-						v = "cyan",
-						V = "cyan",
-						["\22"] = "cyan",
+						v = "purple",
+						V = "purple",
+						["\22"] = "purple",
 						c = "orange",
-						s = "purple",
-						S = "purple",
-						["\19"] = "purple",
+						s = "cyan",
+						S = "cyan",
+						["\19"] = "cyan",
 						R = "red",
 						r = "red",
 						["!"] = "red",
@@ -94,7 +94,7 @@ return {
 				end,
 				hl = function(self)
 					local mode = self.mode:sub(1, 1)
-					return { bg = self.mode_colors[mode], fg = "#ffffff", bold = true }
+					return { bg = self.mode_colors[mode], fg = colors.background, bold = true }
 				end,
 				update = { "ModeChanged" },
 			}
@@ -316,7 +316,7 @@ return {
 				{
 					provider = function(self)
 						local count = self.status_dict.changed or 0
-						return count > 0 and ("󰤌 " .. count .. " ")
+						return count > 0 and (" " .. count .. " ")
 					end,
 					hl = { fg = "git_change", bg = colors.background },
 				},
@@ -333,8 +333,8 @@ return {
 
 			-- Ruler component
 			local ruler = {
-				provider = "%l:%c ",
-				hl = { fg = "grey", bg = colors.background },
+				provider = "%l:%c %p%% ",
+				hl = { fg = colors.foreground, bg = colors.background },
 			}
 
 			local lsp_active = {
