@@ -212,19 +212,6 @@ return {
 				end,
 			}
 
-			local file_format = {
-				provider = function()
-					local fmt = vim.bo.fileformat
-					local icons = {
-						mac = " ",
-						unix = " ",
-						dos = " ",
-					}
-					return icons[fmt] .. " "
-				end,
-				hl = {},
-			}
-
 			-- Diagnostics component
 			local diagnostics = {
 				condition = conditions.has_diagnostics,
@@ -296,7 +283,7 @@ return {
 					provider = function(self)
 						return " " .. self.status_dict.head .. "  "
 					end,
-					hl = { bold = true, bg = colors.background },
+					hl = { bold = false, bg = colors.background },
 				},
 
 				{
@@ -331,23 +318,19 @@ return {
 				},
 			}
 
-			-- Ruler component
-			local ruler = {
-				provider = "%l:%c %p%% ",
-				hl = { fg = colors.foreground, bg = colors.background },
-			}
-
 			local lsp_active = {
 				condition = conditions.lsp_attached,
 				update = { "LspAttach", "LspDetach" },
 				provider = function()
-					local names = {}
-					for i, server in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
-						table.insert(names, server.name)
-					end
-					return " " .. table.concat(names, " ") .. "  "
+					-- local names = {}
+					-- for _, server in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
+					-- 	table.insert(names, server.name)
+					-- end
+					-- return " " .. table.concat(names, " ") .. "  "
+					local num = vim.lsp.get_clients({ bufnr = 0 })
+					return "󰞑 " .. #num .. "  "
 				end,
-				hl = { fg = "green", bold = true, bg = colors.background },
+				hl = { fg = "green", bold = false, bg = colors.background },
 				on_click = {
 					callback = function()
 						vim.defer_fn(function()
@@ -356,6 +339,25 @@ return {
 					end,
 					name = "heirline_lsp",
 				},
+			}
+
+			local file_format = {
+				provider = function()
+					local fmt = vim.bo.fileformat
+					local icons = {
+						mac = " ",
+						unix = " ",
+						dos = " ",
+					}
+					return icons[fmt] .. "  "
+				end,
+				hl = { fg = colors.blue, bg = colors.background },
+			}
+
+			-- Ruler component
+			local ruler = {
+				provider = " %l:%c  󰈚 %p%% ",
+				hl = { fg = colors.gray, bg = colors.background },
 			}
 
 			-- Statusline
@@ -367,8 +369,8 @@ return {
 				{ provider = "%=", separator = " " },
 				search_count,
 				diagnostics,
-				lsp_active,
 				file_format,
+				lsp_active,
 				ruler,
 			}
 
