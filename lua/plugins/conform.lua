@@ -1,6 +1,7 @@
 return {
 	"stevearc/conform.nvim",
 	event = { "BufReadPre", "BufNewFile" },
+	dependencies = { "neovim/nvim-lspconfig" },
 	keys = {
 		{
 			"<leader>F",
@@ -14,8 +15,7 @@ return {
 		require("conform").setup({
 			format_on_save = {
 				lsp_fallback = true,
-				async = false,
-				timeout_ms = 500,
+				timeout_ms = 1000,
 			},
 			formatters_by_ft = {
 				lua = { "stylua" },
@@ -27,13 +27,27 @@ return {
 				typescriptreact = { "prettierd" },
 				vue = { "prettierd" },
 				css = { "prettierd" },
-				svg = { "xmllint" },
-				xml = { "xmllint" },
 				html = { "prettierd" },
 				json = { "prettierd" },
 				yaml = { "prettierd" },
 				markdown = { "prettierd" },
-				svelte = { "svelte" },
+				svelte = function(bufnr)
+					local dir = vim.fs.dirname(
+						vim.fs.find({ "package.json" }, { path = vim.api.nvim_buf_get_name(bufnr), upward = true })[1]
+					)
+					if dir ~= nil then
+						local has_prettier = vim.fn.isdirectory(dir .. "/node_modules/prettier") == 1
+						local has_plugin = vim.fn.isdirectory(dir .. "/node_modules/prettier-plugin-svelte") == 1
+
+						if has_prettier and has_plugin then
+							return { "prettierd" }
+						end
+					end
+					return { lsp_format = "prefer" }
+				end,
+				{ "prettierd", lsp_format = "fallback" },
+				xml = { "xmllint" },
+				-- svg = { "xmllint" },
 			},
 		})
 	end,

@@ -48,19 +48,15 @@ return {
 			capabilities = capabilities,
 		})
 
-		lspconfig.biome.setup({
-			root_dir = function(fname)
-				local root_files = { "biome.json", "biome.jsonc" }
-				root_files = lspconfig.util.insert_package_json(root_files, "biome", fname)
-				return vim.fs.dirname(vim.fs.find(root_files, { path = fname, upward = true })[1])
-			end,
-		})
+		lspconfig.biome.setup({})
 
 		lspconfig.eslint.setup({})
 
 		lspconfig.svelte.setup({ capabilities = capabilities })
 
 		lspconfig.tailwindcss.setup({})
+
+		lspconfig.prismals.setup({})
 
 		-- lspconfig.pyright.setup({ capabilities = capabilities })
 		lspconfig.pylsp.setup({
