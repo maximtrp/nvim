@@ -320,7 +320,7 @@ return {
 
 			local lsp_active = {
 				condition = conditions.lsp_attached,
-				update = { "LspAttach", "LspDetach" },
+				update = { "LspAttach", "LspDetach", "BufEnter", "TabEnter" },
 				provider = function()
 					-- local names = {}
 					-- for _, server in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
