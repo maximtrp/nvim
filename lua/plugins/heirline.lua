@@ -215,19 +215,16 @@ return {
 			-- Diagnostics component
 			local diagnostics = {
 				condition = conditions.has_diagnostics,
-
-				static = {
-					error_icon = vim.fn.sign_getdefined("DiagnosticSignError")[1].text,
-					warn_icon = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text,
-					info_icon = vim.fn.sign_getdefined("DiagnosticSignInfo")[1].text,
-					hint_icon = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text,
-				},
-
 				init = function(self)
 					self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
 					self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
 					self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
 					self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+					self.signs = vim.diagnostic.config().signs.text
+					self.error_icon = self.signs[vim.diagnostic.severity.ERROR]
+					self.warn_icon = self.signs[vim.diagnostic.severity.WARN]
+					self.info_icon = self.signs[vim.diagnostic.severity.INFO]
+					self.hint_icon = self.signs[vim.diagnostic.severity.HINT]
 				end,
 
 				update = { "DiagnosticChanged", "BufEnter" },

@@ -11,7 +11,7 @@ M.light = {
 	cyan = "#077692",
 	teal = "#1F7A6F",
 	orange = "#A7602A",
-	grey = "#6B6B6B",
+	grey = "#747474",
 	bright_grey = "#cccccc",
 	selection = "#fde68a",
 	cur_selection = "#f59e0b",
@@ -174,9 +174,9 @@ function M.setup()
 	set_highlight("@lsp.typemod.property.annotation", { link = "PreProc" })
 	set_highlight("@lsp.typemod.parameter.label", { link = "Parameter" })
 
-	set_highlight("GitSignsChange", { fg = colors.orange })
-	set_highlight("GitSignsAdd", { fg = colors.green })
-	set_highlight("GitSignsDelete", { fg = colors.red })
+	set_highlight("GitSignsChange", { fg = "#f97316" })
+	set_highlight("GitSignsAdd", { fg = "#22c55e" })
+	set_highlight("GitSignsDelete", { fg = "#ef4444" })
 
 	set_highlight("DiagnosticError", { fg = colors.red })
 	set_highlight("DiagnosticWarn", { fg = colors.orange })
