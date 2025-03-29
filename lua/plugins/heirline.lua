@@ -208,11 +208,10 @@ return {
 				end,
 				provider = function(self)
 					local search = self.search
-					return string.format(" %d:%d  ", search.current, math.min(search.total, search.maxcount))
+					return string.format(" %d/%d  ", search.current, math.min(search.total, search.maxcount))
 				end,
 			}
 
-			-- Diagnostics component
 			local diagnostics = {
 				condition = conditions.has_diagnostics,
 				init = function(self)
@@ -307,9 +306,7 @@ return {
 
 				on_click = {
 					callback = function()
-						vim.defer_fn(function()
-							vim.cmd("LazyGit")
-						end, 100)
+						vim.cmd("LazyGit")
 					end,
 					name = "heirline_git",
 				},
@@ -317,7 +314,6 @@ return {
 
 			local lsp_active = {
 				condition = conditions.lsp_attached,
-				update = { "LspAttach", "LspDetach", "BufEnter", "TabEnter" },
 				provider = function()
 					-- local names = {}
 					-- for _, server in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
@@ -330,9 +326,7 @@ return {
 				hl = { fg = "green", bold = false, bg = colors.background },
 				on_click = {
 					callback = function()
-						vim.defer_fn(function()
-							vim.cmd("LspInfo")
-						end, 100)
+						vim.cmd("LspInfo")
 					end,
 					name = "heirline_lsp",
 				},

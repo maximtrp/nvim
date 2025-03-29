@@ -1,5 +1,8 @@
 return {
 	"folke/noice.nvim",
+	dependencies = {
+		"MunifTanjim/nui.nvim",
+	},
 	opts = {
 		timeout = 5000,
 		notify = {
@@ -83,6 +86,14 @@ return {
 						local client = vim.tbl_get(message.opts, "progress", "client")
 						return client == "dart"
 					end,
+				},
+				opts = { skip = true },
+			},
+			{
+				filter = {
+					event = "msg_show",
+					kind = "",
+					find = "written",
 				},
 				opts = { skip = true },
 			},
