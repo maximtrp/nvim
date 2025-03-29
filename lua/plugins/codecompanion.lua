@@ -13,6 +13,9 @@ return {
 				inline = {
 					adapter = "gemini",
 				},
+				cmd = {
+					adapter = "gemini",
+				},
 			},
 		})
 	end,

@@ -1,6 +1,5 @@
 require("config.settings")
-require("config.colorscheme").setup()
+require("config.colorscheme")
 require("config.lazy")
-require("config.file-browser")
 require("config.keymaps")
 require("config.other")

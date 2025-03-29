@@ -1,3 +1,20 @@
+vim.lsp.enable({
+	"biome",
+	"css",
+	"dart",
+	"eslint",
+	"html",
+	"json",
+	"lua",
+	"prisma",
+	"pylsp",
+	"ruff",
+	"svelte",
+	"tailwindcss",
+	"ts",
+	"volar",
+})
+
 vim.diagnostic.config({
 	signs = {
 		text = {
@@ -18,6 +35,24 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	pattern = "*",
 })
 
+vim.api.nvim_create_autocmd("VimEnter", {
+	callback = function()
+		local directory = vim.fn.isdirectory(vim.fn.argv(0)) == 1
+		if directory then
+			vim.cmd("bd")
+			require("telescope").extensions.file_browser.file_browser({
+				path = vim.fn.getcwd(),
+				select_buffer = true,
+				no_ignore = true,
+				grouped = true,
+			})
+		elseif vim.fn.argc() == 0 then
+			vim.cmd("bd")
+			require("telescope.builtin").find_files({ hidden = true })
+		end
+	end,
+})
+
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "qf",
 	callback = function()
@@ -26,7 +61,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = "trouble,lazygit",
+	pattern = "lazygit",
 	callback = function()
 		vim.opt_local.statusline = "  "
 	end,

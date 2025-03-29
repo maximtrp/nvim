@@ -204,7 +204,7 @@ function M.setup()
 	set_highlight("BufferLineBufferSelected", { fg = colors.foreground, bold = true })
 	set_highlight("BufferLineCloseButtonSelected", { fg = colors.red })
 	set_highlight("@ibl.indent.char.1", { link = "IblIndent" })
-	set_highlight("IblIndent", { fg = colors.background })
+	set_highlight("IblIndent", { fg = colors.bright_grey })
 	set_highlight("IblScope", { fg = colors.grey })
 
 	set_highlight("Directory", { fg = colors.foreground, bold = true })
@@ -266,4 +266,4 @@ vim.api.nvim_create_autocmd("OptionSet", {
 	end,
 })
 
-return M
+return M.setup()

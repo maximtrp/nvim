@@ -208,7 +208,7 @@ return {
 				end,
 				provider = function(self)
 					local search = self.search
-					return string.format(" %d/%d  ", search.current, math.min(search.total, search.maxcount))
+					return string.format(" %d:%d  ", search.current, math.min(search.total, search.maxcount))
 				end,
 			}
 
@@ -353,7 +353,7 @@ return {
 
 			-- Ruler component
 			local ruler = {
-				provider = " %l:%c  󰈚 %p%% ",
+				provider = " %l:%c  󰈚 %p%% ",
 				hl = { fg = colors.gray, bg = colors.background },
 			}
 
