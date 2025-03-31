@@ -1,5 +1,6 @@
 return {
 	"olimorris/codecompanion.nvim",
+	event = { "BufReadPre" },
 	dependencies = {
 		{ "nvim-treesitter/nvim-treesitter" },
 		{ "nvim-lua/plenary.nvim" },

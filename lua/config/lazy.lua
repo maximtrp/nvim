@@ -18,9 +18,6 @@ require("lazy").setup({
 	spec = {
 		{ import = "plugins" },
 	},
-	defaults = {
-		version = false,
-	},
 	install = {},
 	checker = { enabled = false },
 })
