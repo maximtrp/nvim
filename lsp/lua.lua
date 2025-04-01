@@ -17,16 +17,7 @@ return {
 			runtime = {
 				version = "LuaJIT",
 			},
-			diagnostics = {
-				globals = { "vim" },
-				disable = { "lowercase-global" },
-			},
-			workspace = {
-				checkThirdParty = false,
-				library = {
-					vim.env.VIMRUNTIME,
-				},
-			},
+			signatureHelp = { enabled = true },
 		},
 	},
 }
