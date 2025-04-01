@@ -49,7 +49,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 			})
 		elseif vim.fn.argc() == 0 then
 			vim.cmd("bd")
-			require("telescope.builtin").git_files({ hidden = true })
+			require("telescope.builtin").find_files({ hidden = true })
 		end
 	end,
 })
