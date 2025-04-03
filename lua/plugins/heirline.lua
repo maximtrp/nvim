@@ -347,7 +347,7 @@ return {
 
 			-- Ruler component
 			local ruler = {
-				provider = " %l:%c  󰈚 %p%% ",
+				provider = " %l:%c  󰯓 %p%% ",
 				hl = { fg = colors.gray, bg = colors.background },
 			}
 
