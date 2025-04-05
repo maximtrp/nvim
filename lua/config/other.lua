@@ -68,6 +68,13 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+vim.api.nvim_create_user_command("LspReload", function()
+	vim.lsp.stop_client(vim.lsp.get_clients())
+	vim.defer_fn(function()
+		vim.cmd("edit")
+	end, 500)
+end, { desc = "Reload all LSP attached", nargs = "*" })
+
 -- vim.lsp.handlers["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
 -- 	if vim.api.nvim_get_mode().mode == "i" then
 -- 		return
