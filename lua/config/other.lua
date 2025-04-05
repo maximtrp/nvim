@@ -75,6 +75,8 @@ vim.api.nvim_create_user_command("LspReload", function()
 	end, 500)
 end, { desc = "Reload all LSP attached", nargs = "*" })
 
+vim.cmd([[au FileType * if index(['wipe', 'delete'], &bufhidden) >= 0 | set nobuflisted | endif]])
+
 -- vim.lsp.handlers["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
 -- 	if vim.api.nvim_get_mode().mode == "i" then
 -- 		return
