@@ -17,12 +17,7 @@ return {
 			runtime = {
 				version = "LuaJIT",
 			},
-			workspace = {
-				checkThirdParty = false,
-				library = {
-					vim.env.VIMRUNTIME,
-				},
-			},
+
 			signatureHelp = { enabled = true },
 		},
 	},
