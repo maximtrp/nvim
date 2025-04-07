@@ -1,5 +1,4 @@
 local utils = require("heirline.utils")
-local color_gray = utils.get_highlight("NonText").fg
 
 local TablineBufnr = {
 	provider = function(self)
@@ -23,7 +22,6 @@ local FileIcon = {
 	end,
 }
 
--- we redefine the filename component, as we probably only want the tail and not the relative path
 local TablineFileName = {
 	provider = function(self)
 		-- self.filename will be defined later, just keep looking at the example!
@@ -32,20 +30,17 @@ local TablineFileName = {
 		return filename
 	end,
 	hl = function(self)
-		return { bold = self.is_active or self.is_visible, fg = self.is_active and "none" or color_gray }
+		return { bold = self.is_active or self.is_visible, fg = self.is_active and "foreground" or "grey" }
 	end,
 }
 
--- this looks exactly like the FileFlags component that we saw in
--- #crash-course-part-ii-filename-and-friends, but we are indexing the bufnr explicitly
--- also, we are adding a nice icon for terminal buffers.
 local TablineFileFlags = {
 	{
 		condition = function(self)
 			return vim.api.nvim_get_option_value("modified", { buf = self.bufnr })
 		end,
-		provider = "[+]",
-		hl = { fg = "green" },
+		provider = " 󰐗 ",
+		hl = { fg = "orange" },
 	},
 	{
 		condition = function(self)
@@ -56,14 +51,13 @@ local TablineFileFlags = {
 			if vim.api.nvim_get_option_value("buftype", { buf = self.bufnr }) == "terminal" then
 				return "  "
 			else
-				return ""
+				return "  "
 			end
 		end,
 		hl = { fg = "orange" },
 	},
 }
 
--- Here the filename block finally comes together
 local TablineFileNameBlock = {
 	init = function(self)
 		self.filename = vim.api.nvim_buf_get_name(self.bufnr)
@@ -71,7 +65,6 @@ local TablineFileNameBlock = {
 	hl = function(self)
 		if self.is_active then
 			return "TabLineSel"
-		-- why not?
 		-- elseif not vim.api.nvim_buf_is_loaded(self.bufnr) then
 		--     return { fg = "gray" }
 		else
@@ -98,15 +91,14 @@ local TablineFileNameBlock = {
 	TablineFileFlags,
 }
 
--- a nice "x" button to close the buffer
 local TablineCloseButton = {
 	condition = function(self)
 		return not vim.api.nvim_get_option_value("modified", { buf = self.bufnr })
 	end,
-	{ provider = " " },
 	{
-		provider = "󰅚 ",
-		hl = { fg = "gray" },
+		provider = function(self)
+			return (self.is_active or self.is_visible) and " 󰅙 " or " 󰅚 "
+		end,
 		on_click = {
 			callback = function(_, minwid)
 				vim.schedule(function()
@@ -120,9 +112,11 @@ local TablineCloseButton = {
 			name = "heirline_tabline_close_buffer_callback",
 		},
 	},
+	hl = function(self)
+		return { fg = (self.is_active or self.is_visible) and "red" or "grey" }
+	end,
 }
 
--- The final touch!
 local TablineBufferBlock = utils.surround({ " ", " " }, function(self)
 	if self.is_active then
 		return utils.get_highlight("TabLineSel").bg
@@ -137,10 +131,8 @@ local get_bufs = function()
 	end, vim.api.nvim_list_bufs())
 end
 
--- initialize the buflist cache
 local buflist_cache = {}
 
--- setup an autocmd that updates the buflist_cache every time that buffers are added/removed
 vim.api.nvim_create_autocmd({ "VimEnter", "UIEnter", "BufAdd", "BufDelete" }, {
 	callback = function()
 		vim.schedule(function()

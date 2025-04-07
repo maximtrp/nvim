@@ -65,7 +65,7 @@ local mode = {
 	end,
 	hl = function(self)
 		local mode = self.mode:sub(1, 1)
-		return { bg = self.mode_colors[mode], bold = true }
+		return { bg = self.mode_colors[mode], fg = "background", bold = true }
 	end,
 	update = { "ModeChanged" },
 }
