@@ -156,8 +156,8 @@ vim.api.nvim_create_autocmd({ "VimEnter", "UIEnter", "BufAdd", "BufDelete" }, {
 
 local BufferLine = utils.make_buflist(
 	TablineBufferBlock,
-	{ provider = " ", hl = { fg = "gray" } },
-	{ provider = " ", hl = { fg = "gray" } },
+	{ provider = "   ", hl = { fg = "gray" } },
+	{ provider = "   ", hl = { fg = "gray" } },
 	-- out buf_func simply returns the buflist_cache
 	function()
 		return buflist_cache
