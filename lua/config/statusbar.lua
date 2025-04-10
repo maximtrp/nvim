@@ -104,7 +104,7 @@ local file_name = {
 		end
 		return filename
 	end,
-	hl = { bold = true, bg = "none" },
+	hl = { bold = true },
 }
 
 local file_flags = {
@@ -113,14 +113,14 @@ local file_flags = {
 			return vim.bo.modified
 		end,
 		provider = " 󱇧 ",
-		hl = { fg = "orange", bg = "none" },
+		hl = { fg = "orange" },
 	},
 	{
 		condition = function()
 			return not vim.bo.modifiable or vim.bo.readonly
 		end,
 		provider = " 󰈡 ",
-		hl = { fg = "red", bg = "none" },
+		hl = { fg = "red" },
 	},
 }
 
@@ -147,7 +147,7 @@ local macro_rec = {
 		return vim.fn.reg_recording() ~= "" and vim.o.cmdheight == 0
 	end,
 	provider = " ",
-	hl = { fg = "orange", bold = true, bg = "none" },
+	hl = { fg = "orange", bold = true },
 	utils.surround({ "@", "  " }, nil, {
 		provider = function()
 			return vim.fn.reg_recording()
@@ -202,25 +202,25 @@ local diagnostics = {
 		provider = function(self)
 			return self.errors > 0 and (self.error_icon .. self.errors .. " ")
 		end,
-		hl = { fg = "diag_error", bg = "none" },
+		hl = { fg = "diag_error" },
 	},
 	{
 		provider = function(self)
 			return self.warnings > 0 and (self.warn_icon .. self.warnings .. " ")
 		end,
-		hl = { fg = "diag_warn", bg = "none" },
+		hl = { fg = "diag_warn" },
 	},
 	{
 		provider = function(self)
 			return self.info > 0 and (self.info_icon .. self.info .. " ")
 		end,
-		hl = { fg = "diag_info", bg = "none" },
+		hl = { fg = "diag_info" },
 	},
 	{
 		provider = function(self)
 			return self.hints > 0 and (self.hint_icon .. self.hints .. " ")
 		end,
-		hl = { fg = "diag_hint", bg = "none" },
+		hl = { fg = "diag_hint" },
 	},
 	{
 		provider = " ",
@@ -239,7 +239,7 @@ local git_branch = {
 		provider = function(self)
 			return " " .. self.status_dict.head .. "  "
 		end,
-		hl = { bold = false, bg = "none" },
+		hl = { bold = false },
 	},
 
 	{
@@ -247,21 +247,21 @@ local git_branch = {
 			local count = self.status_dict.added or 0
 			return count > 0 and (" " .. count .. " ")
 		end,
-		hl = { fg = "git_add", bg = "none" },
+		hl = { fg = "git_add" },
 	},
 	{
 		provider = function(self)
 			local count = self.status_dict.removed or 0
 			return count > 0 and (" " .. count .. " ")
 		end,
-		hl = { fg = "git_del", bg = "none" },
+		hl = { fg = "git_del" },
 	},
 	{
 		provider = function(self)
 			local count = self.status_dict.changed or 0
 			return count > 0 and (" " .. count .. " ")
 		end,
-		hl = { fg = "git_change", bg = "none" },
+		hl = { fg = "git_change" },
 	},
 
 	on_click = {
@@ -278,7 +278,7 @@ local lsp_active = {
 		local num = vim.lsp.get_clients({ bufnr = 0 })
 		return "󰞑 " .. #num .. "  "
 	end,
-	hl = { fg = "green", bold = false, bg = "none" },
+	hl = { fg = "green", bold = false },
 	on_click = {
 		callback = function()
 			vim.cmd("LspInfo")
@@ -297,13 +297,13 @@ local file_format = {
 		}
 		return icons[fmt] .. "  "
 	end,
-	hl = { fg = "blue", bg = "none" },
+	hl = { fg = "blue" },
 }
 
 -- Ruler component
 local ruler = {
 	provider = " %l:%c  󰯓 %p%% ",
-	hl = { fg = "gray", bg = "none" },
+	hl = { fg = "gray" },
 }
 
 -- Statusline
