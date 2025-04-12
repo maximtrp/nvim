@@ -18,7 +18,7 @@ local FileIcon = {
 		return self.icon and (" " .. self.icon .. " ")
 	end,
 	hl = function(self)
-		return { fg = self.icon_color }
+		return { fg = (self.is_active or self.is_visible) and self.icon_color or "grey" }
 	end,
 }
 
@@ -117,7 +117,7 @@ local TablineCloseButton = {
 	end,
 }
 
-local TablineBufferBlock = utils.surround({ " ", " " }, function(self)
+local TablineBufferBlock = utils.surround({ "", " " }, function(self)
 	if self.is_active then
 		return utils.get_highlight("TabLineSel").bg
 	else
