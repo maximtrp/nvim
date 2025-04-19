@@ -47,7 +47,7 @@ return {
 				end,
 				{ "prettierd", lsp_format = "fallback" },
 				xml = { "xmllint" },
-				-- svg = { "xmllint" },
+				svg = { "xmllint" },
 			},
 		})
 	end,

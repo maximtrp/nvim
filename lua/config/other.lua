@@ -2,6 +2,7 @@ vim.lsp.enable({
 	"biome",
 	"css",
 	"dart",
+	"docker",
 	"eslint",
 	"html",
 	"json",
