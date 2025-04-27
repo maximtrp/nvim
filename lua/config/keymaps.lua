@@ -24,7 +24,7 @@ vim.keymap.set("n", "<leader>fF", "<cmd>Telescope find_files hidden=true no_igno
 vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files hidden=true<CR>", opts)
 vim.keymap.set("n", "<leader>fg", "<cmd>Telescope git_files hidden=true<CR>", opts)
 vim.keymap.set("n", "<leader>fs", "<cmd>Telescope lsp_document_symbols<CR>", opts)
-vim.keymap.set("n", "<leader>fS", "<cmd>Telescope lsp_workspace_symbols<CR>", opts)
+vim.keymap.set("n", "<leader>fS", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", opts)
 vim.keymap.set("n", "<leader>ft", "<cmd>Telescope buffers previewer=false<CR>", opts)
 vim.keymap.set("n", "<leader>fw", "<cmd>Telescope live_grep hidden=true<CR>", opts)
 vim.keymap.set("n", "<leader>fW", "<cmd>Telescope grep_string<CR>", opts)
@@ -57,7 +57,7 @@ vim.keymap.set("n", "<leader>gb", "<cmd>Gitsigns blame_line<cr>")
 vim.keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>")
 
 vim.keymap.set("n", "<leader>wl", function()
-	print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+	vim.print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 end, opts)
 
 --vim.keymap.set("n", "zR", require("ufo").openAllFolds)

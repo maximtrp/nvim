@@ -93,7 +93,6 @@ function M.setup()
 	set_highlight("@markup.heading", { link = "Title" })
 	set_highlight("@markup.link.url", { link = "Underlined" })
 	set_highlight("@markup.underline", { link = "Underlined" })
-	set_highlight("@comment.todo", { link = "Todo" })
 
 	-- Miscs
 	set_highlight("@comment", { link = "Comment" })
@@ -188,6 +187,8 @@ function M.setup()
 	set_highlight("DiagnosticUnderlineInfo", { sp = colors.green, underline = true })
 	set_highlight("DiagnosticUnderlineHint", { sp = colors.grey, underline = true })
 	set_highlight("DiagnosticUnderlineOk", { sp = colors.green, underline = true })
+
+	set_highlight("@comment.todo", { fg = colors.background, bg = colors.blue, bold = true })
 
 	set_highlight("Normal", { fg = colors.foreground, bg = "none" })
 	set_highlight("NormalNC", { fg = colors.grey, bg = "none" })

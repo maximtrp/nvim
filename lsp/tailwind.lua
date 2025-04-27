@@ -1,10 +1,10 @@
+local utils = require("config.utils")
+
 ---@type vim.lsp.Config
 return {
 	cmd = { "tailwindcss-language-server", "--stdio" },
-
-	root_dir = function(bufnr, cb)
-		local utils = require("config.utils")
-		local fname = vim.api.nvim_buf_get_name(bufnr)
+	workspace_required = true,
+	root_dir = function(bufnr, on_dir)
 		local root_files = {
 			"tailwind.config.js",
 			"tailwind.config.cjs",
@@ -15,11 +15,12 @@ return {
 			"postcss.config.mjs",
 			"postcss.config.ts",
 		}
+		local fname = vim.api.nvim_buf_get_name(bufnr)
 		root_files = utils.insert_package_json(root_files, "tailwindcss", fname)
-		local root_dir = vim.fs.dirname(vim.fs.find(root_files, { path = fname, upward = true })[1])
+		local root = vim.fs.dirname(vim.fs.find(root_files, { path = fname, upward = true })[1])
 
-		if root_dir ~= nil then
-			cb(root_dir)
+		if root ~= nil then
+			on_dir(root)
 		end
 	end,
 	-- filetypes copied and adjusted from tailwindcss-intellisense

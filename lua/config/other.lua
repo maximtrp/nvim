@@ -1,5 +1,5 @@
 vim.lsp.enable({
-	"biome",
+	"biomejs",
 	"css",
 	"dart",
 	"docker",
@@ -11,7 +11,7 @@ vim.lsp.enable({
 	"pylsp",
 	"ruff",
 	"svelte",
-	"tailwindcss",
+	"tailwind",
 	"ts",
 	"volar",
 })
