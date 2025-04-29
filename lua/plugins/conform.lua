@@ -1,7 +1,6 @@
 return {
 	"stevearc/conform.nvim",
 	event = { "BufReadPre", "BufNewFile" },
-	dependencies = { "neovim/nvim-lspconfig" },
 	keys = {
 		{
 			"<leader>F",

@@ -1,18 +1,54 @@
+vim.lsp.config("dartls", {
+	settings = { dart = { completeFunctionCalls = true, lineLength = 120, showTodos = false } },
+})
+
+vim.lsp.config("lua_ls", {
+	settings = { Lua = { runtime = { version = "LuaJIT" }, signatureHelp = { enabled = true } } },
+})
+
+vim.lsp.config("ts_ls", {
+	init_options = {
+		plugins = {
+			{
+				name = "@vue/typescript-plugin",
+				location = "/opt/homebrew/lib/node_modules/@vue/typescript-plugin",
+				languages = { "javascript", "typescript", "vue" },
+			},
+		},
+	},
+})
+
+vim.lsp.config("pylsp", {
+	settings = {
+		pylsp = {
+			plugins = {
+				mypy = { enabled = true },
+				mccabe = { enabled = false },
+				pycodestyle = { enabled = false },
+				pydocstyle = { enabled = false },
+				pyflakes = { enabled = false },
+				flake8 = { enabled = false },
+				pylint = { enabled = false },
+			},
+		},
+	},
+})
+
 vim.lsp.enable({
-	"biomejs",
-	"css",
-	"dart",
-	"docker",
+	"biome",
+	"cssls",
+	"dartls",
+	"dockerls",
 	"eslint",
 	"html",
-	"json",
-	"lua",
-	"prisma",
+	"jsonls",
+	"lua_ls",
+	"prismals",
 	"pylsp",
 	"ruff",
 	"svelte",
-	"tailwind",
-	"ts",
+	"tailwindcss",
+	"ts_ls",
 	"volar",
 })
 
