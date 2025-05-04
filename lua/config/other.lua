@@ -43,6 +43,7 @@ vim.lsp.enable({
 	"html",
 	"jsonls",
 	"lua_ls",
+	"oxlint",
 	"prismals",
 	"pylsp",
 	"ruff",
