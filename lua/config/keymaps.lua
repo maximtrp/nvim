@@ -1,5 +1,6 @@
 local opts = { noremap = true, silent = true }
 
+vim.keymap.set("i", "<C-e>", "<C-o>de")
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<down>", "gj")
 vim.keymap.set("n", "<up>", "gk")
