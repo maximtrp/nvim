@@ -18,11 +18,12 @@ vim.o.pumheight = 15
 vim.o.undofile = true
 vim.o.foldenable = true
 vim.o.foldlevel = 99
-vim.o.foldlevelstart = 99
+vim.o.foldlevelstart = 9
+vim.o.foldnestmax = 20
+vim.o.foldcolumn = "1"
+-- vim.o.foldmethod = "indent"
 vim.o.foldmethod = "expr"
 vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.o.foldtext = ""
-vim.o.foldcolumn = "1"
 vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 -- vim.o.showtabline = 2
-
