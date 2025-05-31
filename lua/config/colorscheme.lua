@@ -188,7 +188,7 @@ function M.setup()
 	set_highlight("DiagnosticUnderlineHint", { sp = colors.grey, underline = true })
 	set_highlight("DiagnosticUnderlineOk", { sp = colors.green, underline = true })
 
-	set_highlight("@comment.todo", { fg = colors.background, bg = colors.blue, bold = true })
+	-- set_highlight("@comment.todo", { fg = colors.background, bg = colors.blue, bold = true })
 
 	set_highlight("Normal", { fg = colors.foreground, bg = "none" })
 	set_highlight("NormalNC", { fg = colors.grey, bg = "none" })

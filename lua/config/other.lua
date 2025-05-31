@@ -23,7 +23,7 @@ vim.lsp.config("ts_ls", {
 	},
 })
 
-vim.lsp.config("volar", {
+vim.lsp.config("vue_ls", {
 	init_options = {
 		typescript = {
 			tsdk = "/opt/homebrew/lib/node_modules/typescript/lib",
@@ -69,7 +69,7 @@ vim.lsp.enable({
 	"svelte",
 	"tailwindcss",
 	"ts_ls",
-	"volar",
+	"vue_ls",
 })
 
 vim.diagnostic.config({
@@ -127,9 +127,9 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.api.nvim_create_user_command("LspReload", function()
 	vim.lsp.stop_client(vim.lsp.get_clients())
-	vim.defer_fn(function()
-		vim.cmd("edit")
-	end, 500)
+	-- vim.defer_fn(function()
+	vim.cmd("edit")
+	-- end, 1000)
 end, { desc = "Reload all LSP attached", nargs = "*" })
 
 vim.cmd([[au FileType * if index(['wipe', 'delete'], &bufhidden) >= 0 | set nobuflisted | endif]])
