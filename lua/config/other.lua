@@ -125,13 +125,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
-vim.api.nvim_create_user_command("LspReload", function()
-	vim.lsp.stop_client(vim.lsp.get_clients())
-	-- vim.defer_fn(function()
-	vim.cmd("edit")
-	-- end, 1000)
-end, { desc = "Reload all LSP attached", nargs = "*" })
-
 vim.cmd([[au FileType * if index(['wipe', 'delete'], &bufhidden) >= 0 | set nobuflisted | endif]])
 
 -- vim.lsp.handlers["textDocument/publishDiagnostics"] = function(_, result, ctx, config)

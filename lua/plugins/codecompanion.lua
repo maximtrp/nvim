@@ -10,12 +10,15 @@ return {
 			strategies = {
 				chat = {
 					adapter = "gemini",
+					model = "gemini-2.5-flash-preview-05-20",
 				},
 				inline = {
 					adapter = "gemini",
+					model = "gemini-2.5-flash-preview-05-20",
 				},
 				cmd = {
 					adapter = "gemini",
+					model = "gemini-2.5-flash-preview-05-20",
 				},
 			},
 		})
