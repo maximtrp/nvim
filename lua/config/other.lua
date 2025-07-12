@@ -23,16 +23,56 @@ vim.lsp.config("ts_ls", {
 	},
 })
 
+vim.lsp.config("vtsls", {
+	settings = {
+		vtsls = {
+			tsserver = {
+				globalPlugins = {
+					{
+						name = "@vue/typescript-plugin",
+						location = "/opt/homebrew/lib/node_modules/@vue/typescript-plugin",
+						languages = { "vue" },
+						configNamespace = "typescript",
+					},
+				},
+			},
+		},
+	},
+	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+})
+
 vim.lsp.config("vue_ls", {
-	init_options = {
+	--[[ init_options = {
 		typescript = {
 			tsdk = "/opt/homebrew/lib/node_modules/typescript/lib",
 		},
-	},
-	before_init = function(_, config)
-		local lib_path = vim.fs.find("node_modules/typescript/lib", { path = config.root_dir, upward = true })[1]
-		if lib_path then
-			config.init_options.typescript.tsdk = lib_path
+	}, ]]
+	on_init = function(client)
+		client.handlers["tsserver/request"] = function(_, result, context)
+			local clients = vim.lsp.get_clients({ bufnr = context.bufnr, name = "vtsls" })
+			if #clients == 0 then
+				vim.notify(
+					"Could not found `vtsls` lsp client, vue_lsp would not work without it.",
+					vim.log.levels.ERROR
+				)
+				return
+			end
+			local ts_client = clients[1]
+
+			local param = unpack(result)
+			local id, command, payload = unpack(param)
+			ts_client:exec_cmd({
+				title = "vue_request_forward", -- You can give title anything as it's used to represent a command in the UI, `:h Client:exec_cmd`
+				command = "typescript.tsserverRequest",
+				arguments = {
+					command,
+					payload,
+				},
+			}, { bufnr = context.bufnr }, function(_, r)
+				local response_data = { { id, r.body } }
+				---@diagnostic disable-next-line: param-type-mismatch
+				client:notify("tsserver/response", response_data)
+			end)
 		end
 	end,
 })
@@ -68,7 +108,7 @@ vim.lsp.enable({
 	"ruff",
 	"svelte",
 	"tailwindcss",
-	"ts_ls",
+	"vtsls",
 	"vue_ls",
 })
 
