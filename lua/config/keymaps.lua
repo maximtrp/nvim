@@ -28,6 +28,7 @@ vim.keymap.set("n", "<leader>fs", "<cmd>Telescope lsp_document_symbols<CR>", opt
 vim.keymap.set("n", "<leader>fS", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", opts)
 vim.keymap.set("n", "<leader>ft", "<cmd>Telescope buffers previewer=false<CR>", opts)
 vim.keymap.set("n", "<leader>fw", "<cmd>Telescope live_grep hidden=true<CR>", opts)
+--{ shorten_path = true, word_match = "-w", only_sort_text = true, search = '' }
 vim.keymap.set("n", "<leader>fW", "<cmd>Telescope grep_string<CR>", opts)
 vim.keymap.set("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", opts)
 vim.keymap.set("n", "<leader>gr", "<cmd>Telescope lsp_references<cr>", opts)
@@ -40,6 +41,15 @@ vim.keymap.set({ "v", "n" }, "<leader>y", '"+y', opts)
 vim.keymap.set({ "v", "n" }, "<leader>d", '"+d', opts)
 vim.keymap.set({ "v", "n" }, "<leader>D", '"_d', opts)
 vim.keymap.set({ "v", "n" }, "<leader>p", '"+p', opts)
+vim.keymap.set("n", "<leader>yf", function()
+	local relative_path = vim.fn.expand("%")
+	if relative_path ~= "" then
+		vim.fn.setreg("+", relative_path)
+		vim.notify("Copied to clipboard: " .. relative_path)
+	else
+		vim.notify("No file in current buffer")
+	end
+end, opts)
 
 vim.keymap.set("n", "[b", "<cmd>bprevious<cr>")
 vim.keymap.set("n", "]b", "<cmd>bnext<cr>")
