@@ -27,8 +27,16 @@ vim.keymap.set("n", "<leader>fg", "<cmd>Telescope git_files hidden=true<CR>", op
 vim.keymap.set("n", "<leader>fs", "<cmd>Telescope lsp_document_symbols<CR>", opts)
 vim.keymap.set("n", "<leader>fS", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", opts)
 vim.keymap.set("n", "<leader>ft", "<cmd>Telescope buffers previewer=false<CR>", opts)
-vim.keymap.set("n", "<leader>fw", "<cmd>Telescope live_grep hidden=true<CR>", opts)
---{ shorten_path = true, word_match = "-w", only_sort_text = true, search = '' }
+-- vim.keymap.set("n", "<leader>fw", "<cmd>Telescope live_grep hidden=true<CR>", opts)
+vim.keymap.set("n", "<leader>fw", function()
+	require("telescope.builtin").grep_string({
+		shorten_path = true,
+		word_match = "-w",
+		only_sort_text = true,
+		search = "",
+	})
+end)
+
 vim.keymap.set("n", "<leader>fW", "<cmd>Telescope grep_string<CR>", opts)
 vim.keymap.set("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", opts)
 vim.keymap.set("n", "<leader>gr", "<cmd>Telescope lsp_references<cr>", opts)
