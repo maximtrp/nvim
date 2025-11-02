@@ -5,12 +5,14 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<down>", "gj")
 vim.keymap.set("n", "<up>", "gk")
 
+vim.keymap.set("n", "<leader>w", ":set list!<CR>")
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 -- vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover, opts)
 vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, opts)
 vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts)
 vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+vim.keymap.set({ "n", "v" }, "<leader>xe", require("nvim-emmet").wrap_with_abbreviation)
 
 vim.keymap.set(
 	"n",
@@ -27,8 +29,8 @@ vim.keymap.set("n", "<leader>fg", "<cmd>Telescope git_files hidden=true<CR>", op
 vim.keymap.set("n", "<leader>fs", "<cmd>Telescope lsp_document_symbols<CR>", opts)
 vim.keymap.set("n", "<leader>fS", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", opts)
 vim.keymap.set("n", "<leader>ft", "<cmd>Telescope buffers previewer=false<CR>", opts)
--- vim.keymap.set("n", "<leader>fw", "<cmd>Telescope live_grep hidden=true<CR>", opts)
-vim.keymap.set("n", "<leader>fw", function()
+vim.keymap.set("n", "<leader>fw", "<cmd>Telescope live_grep hidden=true<CR>", opts)
+vim.keymap.set("n", "<leader>fz", function()
 	require("telescope.builtin").grep_string({
 		shorten_path = true,
 		word_match = "-w",
@@ -38,7 +40,7 @@ vim.keymap.set("n", "<leader>fw", function()
 end)
 
 vim.keymap.set("n", "<leader>fW", "<cmd>Telescope grep_string<CR>", opts)
-vim.keymap.set("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", opts)
+vim.keymap.set("n", "<leader>fc", "<cmd>Telescope current_buffer_fuzzy_find<CR>", opts)
 vim.keymap.set("n", "<leader>gr", "<cmd>Telescope lsp_references<cr>", opts)
 vim.keymap.set("n", "<leader>gd", "<cmd>Telescope lsp_definitions<cr>", opts)
 vim.keymap.set("n", "<leader>gi", "<cmd>Telescope lsp_implementations<cr>", opts)
@@ -50,7 +52,7 @@ vim.keymap.set({ "v", "n" }, "<leader>d", '"+d', opts)
 vim.keymap.set({ "v", "n" }, "<leader>D", '"_d', opts)
 vim.keymap.set({ "v", "n" }, "<leader>p", '"+p', opts)
 vim.keymap.set("n", "<leader>yf", function()
-	local relative_path = vim.fn.expand("%")
+	local relative_path = vim.fn.expand("%:.")
 	if relative_path ~= "" then
 		vim.fn.setreg("+", relative_path)
 		vim.notify("Copied to clipboard: " .. relative_path)

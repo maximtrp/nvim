@@ -59,11 +59,16 @@ vim.lsp.config("pylsp", {
 	},
 })
 
+vim.lsp.config("emmet_language_server", {})
+
+vim.lsp.config("docker_language_server", {})
+
 vim.lsp.enable({
 	"biome",
 	"cssls",
 	"dartls",
-	"dockerls",
+	"docker_language_server",
+	"emmet_language_server",
 	"eslint",
 	"html",
 	"jsonls",
@@ -132,6 +137,13 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.cmd([[au FileType * if index(['wipe', 'delete'], &bufhidden) >= 0 | set nobuflisted | endif]])
+
+vim.filetype.add({
+	pattern = {
+		-- ["compose.*%.ya?ml"] = "yaml.docker-compose",
+		["docker%-compose.*%.ya?ml"] = "yaml.docker-compose",
+	},
+})
 
 -- vim.lsp.handlers["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
 -- 	if vim.api.nvim_get_mode().mode == "i" then

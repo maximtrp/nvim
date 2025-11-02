@@ -25,5 +25,6 @@ vim.o.foldcolumn = "1"
 vim.o.foldmethod = "expr"
 vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.o.foldtext = ""
-vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+vim.opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+vim.opt.listchars = { space = "·", tab = "→ ", eol = "↲", trail = "~" }
 -- vim.o.showtabline = 2
