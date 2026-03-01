@@ -5,6 +5,7 @@ return {
 		local builtin = require("statuscol.builtin")
 		return {
 			setopt = true,
+			ft_ignore = { "neo-tree" },
 			-- override the default list of segments with:
 			-- number-less fold indicator, then signs, then line number & separator
 			relculright = true,

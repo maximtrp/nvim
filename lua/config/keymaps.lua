@@ -72,6 +72,7 @@ vim.keymap.set("n", "]d", function()
 	vim.diagnostic.jump({ count = 1, float = true })
 end)
 
+vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<CR>", opts)
 vim.keymap.set("n", "<leader>o", "<cmd>Outline<CR>")
 
 vim.keymap.set("n", "<leader>gb", "<cmd>Gitsigns blame_line<cr>")

@@ -2,11 +2,11 @@ local M = {}
 
 -- Light mode palette
 M.light = {
-	foreground = "#3f3f3f",
+	foreground = "#202020",
 	background = "#f0f0f0",
 	red = "#B42D4F",
 	blue = "#3158C4",
-	green = "#247B45",
+	green = "#217340", -- "#247B45",
 	purple = "#862AA7",
 	cyan = "#077692",
 	teal = "#1F7A6F",
@@ -15,13 +15,13 @@ M.light = {
 	bright_grey = "#e0e0e0",
 	selection = "#fde68a",
 	cur_selection = "#f59e0b",
-	black = "#3f3f3f",
+	black = "#202020",
 }
 
 -- Dark mode palette
 M.dark = {
 	foreground = "#d4d4d4",
-	background = "#262626",
+	background = "#202020",
 	red = "#E77474", -- "#d65c5c",
 	blue = "#749CDC", -- "#5288e0",
 	green = "#48A86B", -- "#339958",
@@ -29,11 +29,11 @@ M.dark = {
 	cyan = "#4BA7C3", -- "#48bfe3",
 	teal = "#39AC9F", -- "#22c3b0",
 	orange = "#BD8A65", -- "#d5986d",
-	grey = "#888888",
-	bright_grey = "#363636",
+	grey = "#808080",
+	bright_grey = "#202020",
 	selection = "#92400e",
 	cur_selection = "#f59e0b",
-	black = "#3f3f3f",
+	black = "#262626",
 }
 
 -- Apply the colors
@@ -49,6 +49,8 @@ function M.setup()
 	local bg = vim.o.background
 	local colors = (bg == "light") and M.light or M.dark
 
+	set_highlight("NeoTreeNormalNC", { link = "Normal" })
+	set_highlight("WinSeparator", { fg = colors.background })
 	set_highlight("StatusLine", { bg = colors.background })
 	set_highlight("StatusLineNC", { bg = colors.background })
 	set_highlight("Conditional", { link = "Conditional" })
@@ -130,13 +132,13 @@ function M.setup()
 	set_highlight("@constructor", { link = "Special" })
 
 	-- Keywords
-	set_highlight("@keyword.conditional", { link = "Conditional" })
-	set_highlight("@keyword.repeat", { link = "Repeat" })
-	set_highlight("@keyword.type", { link = "Structure" })
 	set_highlight("@label", { link = "Label" })
 	set_highlight("@operator", { link = "Operator" })
 	set_highlight("@keyword", { link = "Keyword" })
+	-- set_highlight("@keyword.type", { link = "Structure" })
 	set_highlight("@keyword.exception", { link = "Exception" })
+	set_highlight("@keyword.conditional", { link = "Conditional" })
+	set_highlight("@keyword.repeat", { link = "Repeat" })
 
 	set_highlight("@variable", { link = "Identifier" })
 	set_highlight("@type", { link = "Type" })
@@ -236,6 +238,7 @@ function M.setup()
 	set_highlight("Conceal", { fg = colors.grey })
 	set_highlight("NonText", { fg = colors.grey })
 	set_highlight("TelescopeNormal", { bg = colors.background, fg = colors.foreground })
+	set_highlight("TelescopeSelection", { bg = colors.cur_selection, fg = colors.black })
 	set_highlight("TelescopeMatching", { fg = colors.red, bold = true })
 
 	set_highlight("Identifier", { fg = colors.foreground })
@@ -251,13 +254,13 @@ function M.setup()
 	set_highlight("CSSprop", { fg = colors.teal })
 	set_highlight("Function", { fg = colors.blue })
 	set_highlight("String", { fg = colors.green })
-	set_highlight("Tag", { fg = colors.teal })
+	set_highlight("Tag", { fg = colors.blue })
 	set_highlight("Delimiter", { fg = colors.grey })
 	set_highlight("TagDelimiter", { fg = colors.grey })
 	set_highlight("TagAttribute", { fg = colors.orange })
 	set_highlight("Statement", { fg = colors.red })
 	set_highlight("Operator", { fg = colors.orange })
-	set_highlight("Conditional", { fg = colors.red, bold = true })
+	set_highlight("Conditional", { fg = colors.red })
 	set_highlight("PreProc", { fg = colors.red })
 	set_highlight("Type", { fg = colors.teal })
 	set_highlight("Underlined", { underline = true })
