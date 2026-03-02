@@ -74,6 +74,7 @@ end)
 
 vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<CR>", opts)
 vim.keymap.set("n", "<leader>o", "<cmd>Outline<CR>")
+vim.keymap.set("n", "<leader>t", "<cmd>Trouble diagnostics<CR>")
 
 vim.keymap.set("n", "<leader>gb", "<cmd>Gitsigns blame_line<cr>")
 vim.keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>")

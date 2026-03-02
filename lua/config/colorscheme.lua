@@ -49,6 +49,8 @@ function M.setup()
 	local bg = vim.o.background
 	local colors = (bg == "light") and M.light or M.dark
 
+	set_highlight("TroubleNormalNC", { link = "Normal" })
+	set_highlight("TroubleNormal", { link = "Normal" })
 	set_highlight("NeoTreeNormalNC", { link = "Normal" })
 	set_highlight("WinSeparator", { fg = colors.background })
 	set_highlight("StatusLine", { bg = colors.background })
@@ -217,9 +219,9 @@ function M.setup()
 
 	set_highlight("Directory", { fg = colors.foreground, bold = true })
 	set_highlight("MsgArea", { bg = colors.background, fg = colors.foreground })
-	set_highlight("Visual", { bg = colors.bright_grey, fg = colors.foreground })
+	set_highlight("Visual", { bg = colors.purple, fg = colors.black, bold = true })
 	set_highlight("LazyButtonActive", { bg = colors.cur_selection, fg = colors.black })
-	set_highlight("YankHighlight", { bg = colors.orange, fg = colors.black })
+	set_highlight("YankHighlight", { bg = colors.purple, fg = colors.black, bold = true })
 	set_highlight("Search", { bg = colors.selection, fg = colors.foreground })
 	set_highlight("CurSearch", { bg = colors.cur_selection, fg = colors.black })
 	set_highlight("IncSearch", { bg = colors.cur_selection, fg = colors.black })
