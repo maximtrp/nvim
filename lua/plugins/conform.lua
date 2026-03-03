@@ -1,65 +1,66 @@
 return {
-	"stevearc/conform.nvim",
-	event = { "BufReadPre", "BufNewFile" },
-	keys = {
-		{
-			"<leader>F",
-			function()
-				require("conform").format({ async = true, lsp_format = "fallback" })
-			end,
-			mode = "",
-		},
-	},
-	config = function()
-		-- Read package.json deps for the given buffer's project root
-		local function pkg_deps(bufnr)
-			local pkg_path = vim.fs.find({ "package.json" }, {
-				path = vim.api.nvim_buf_get_name(bufnr),
-				upward = true,
-			})[1]
-			if not pkg_path then
-				return {}
-			end
-			local ok, content = pcall(vim.fn.readfile, pkg_path)
-			if not ok then
-				return {}
-			end
-			local ok2, pkg = pcall(vim.fn.json_decode, table.concat(content, "\n"))
-			if not ok2 then
-				return {}
-			end
-			return vim.tbl_extend("force", pkg.dependencies or {}, pkg.devDependencies or {})
-		end
+  "stevearc/conform.nvim",
+  event = { "BufReadPre", "BufNewFile" },
+  keys = {
+    {
+      "<leader>F",
+      function()
+        require("conform").format({ async = true, lsp_format = "fallback" })
+      end,
+      mode = "",
+    },
+  },
+  config = function()
+    local conform = require("conform")
 
-		require("conform").setup({
-			format_on_save = {
-				lsp_fallback = true,
-				timeout_ms = 1000,
-			},
-			formatters_by_ft = {
-				lua = { "stylua" },
-				rust = { "rustfmt", lsp_format = "fallback" },
-				python = { "ruff_format" },
-				javascript = { "prettier", stop_after_first = true },
-				typescript = { "prettier", stop_after_first = true },
-				javascriptreact = { "prettier", stop_after_first = true },
-				typescriptreact = { "prettier", stop_after_first = true },
-				vue = { "prettier", stop_after_first = true },
-				css = { "prettier", stop_after_first = true },
-				html = { "prettier", stop_after_first = true },
-				json = { "prettier", stop_after_first = true },
-				yaml = { "prettier", stop_after_first = true },
-				markdown = { "prettier", stop_after_first = true },
-				xml = { "xmllint" },
-				svg = { "xmllint" },
-				svelte = function(bufnr)
-					local deps = pkg_deps(bufnr)
-					if deps["prettier"] and deps["prettier-plugin-svelte"] then
-						return { "prettier", stop_after_first = true }
-					end
-					return { lsp_format = "prefer" }
-				end,
-			},
-		})
-	end,
+    local function nm_path(bufnr)
+      local fname = vim.api.nvim_buf_get_name(bufnr)
+      return fname ~= ""
+        and vim.fs.find("node_modules", { path = fname, upward = true, type = "directory" })[1]
+    end
+
+    --- oxlint (linter) + first available formatter; empty list triggers LSP fallback.
+    local function web_formatters(bufnr)
+      local nm = nm_path(bufnr)
+      local result = {}
+      for _, name in ipairs({ "oxfmt", "biome", "prettier" }) do
+        if nm and vim.fn.executable(nm .. "/.bin/" .. name) == 1 then
+          table.insert(result, name)
+          break
+        end
+      end
+      return result
+    end
+
+    conform.setup({
+      format_on_save = { lsp_fallback = true, timeout_ms = 1000 },
+      formatters_by_ft = {
+        lua = { "stylua" },
+        rust = { "rustfmt", lsp_format = "fallback" },
+        python = { "ruff_format" },
+        javascript = web_formatters,
+        typescript = web_formatters,
+        javascriptreact = web_formatters,
+        typescriptreact = web_formatters,
+        vue = web_formatters,
+        css = web_formatters,
+        html = web_formatters,
+        json = web_formatters,
+        yaml = { "prettier", stop_after_first = true, lsp_format = "fallback" },
+        markdown = { "prettier", stop_after_first = true, lsp_format = "fallback" },
+        xml = { "xmllint" },
+        svg = { "xmllint" },
+        svelte = function(bufnr)
+          local nm = nm_path(bufnr)
+          if nm and vim.fn.executable(nm .. "/.bin/biome") == 1 then
+            return { "biome" }
+          end
+          if nm and vim.fn.isdirectory(nm .. "/prettier-plugin-svelte") == 1 then
+            return { "prettier" }
+          end
+          return {}
+        end,
+      },
+    })
+  end,
 }

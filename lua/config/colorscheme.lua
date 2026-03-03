@@ -219,7 +219,7 @@ function M.setup()
 
 	set_highlight("Directory", { fg = colors.foreground, bold = true })
 	set_highlight("MsgArea", { bg = colors.background, fg = colors.foreground })
-	set_highlight("Visual", { bg = colors.purple, fg = colors.black, bold = true })
+	set_highlight("Visual", { bg = colors.purple, fg = colors.background, bold = true })
 	set_highlight("LazyButtonActive", { bg = colors.cur_selection, fg = colors.black })
 	set_highlight("YankHighlight", { bg = colors.purple, fg = colors.black, bold = true })
 	set_highlight("Search", { bg = colors.selection, fg = colors.foreground })
