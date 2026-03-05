@@ -92,6 +92,14 @@ vim.diagnostic.config({
 			[vim.diagnostic.severity.INFO] = " ",
 		},
 	},
+	virtual_text = {
+		spacing = 4,
+		source = "if_many",
+		prefix = function(diagnostic)
+			local signs = vim.diagnostic.config().signs.text
+			return signs[diagnostic.severity] or "●"
+		end,
+	},
 })
 
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })

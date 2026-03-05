@@ -99,7 +99,7 @@ local file_name = {
 		if filename == "" then
 			return "..."
 		end
-		if not conditions.width_percent_below(#filename, 0.4) then
+		if not conditions.width_percent_below(#filename, 0.5) then
 			filename = vim.fn.pathshorten(filename)
 		end
 		return filename
