@@ -28,37 +28,46 @@ return {
 		}
 
 		local function make_node_modules_cwd(formatter_name)
+			local bin_name = formatter_bins[formatter_name] or formatter_name
+			local pkg_name = formatter_packages[formatter_name]
+
 			return function(_, ctx)
-				local root = vim.fs.find("node_modules", {
-					-- path = vim.fs.dirname(ctx.filename),
-					path = vim.fs.dirname(ctx.dirname),
+				local start_path = vim.fs.dirname(ctx.dirname)
+
+				-- 1. Verify the binary exists in any node_modules going upward (handles hoisting)
+				local bin_found = false
+				for _, root in ipairs(vim.fs.find("node_modules", {
+					path = start_path,
 					upward = true,
 					type = "directory",
-				})[1]
+					limit = math.huge,
+				})) do
+					if vim.fn.executable(root .. "/.bin/" .. bin_name) == 1 then
+						bin_found = true
+						break
+					end
+				end
 
-				if not root then
+				if not bin_found then
 					return nil
 				end
 
-				local project_root = vim.fs.dirname(root)
-
-				-- Check binary exists in node_modules/.bin
-				local bin_name = formatter_bins[formatter_name] or formatter_name
-				local bin_path = root .. "/.bin/" .. bin_name
-				if vim.fn.executable(bin_path) ~= 1 then
-					return nil
+				if not pkg_name then
+					return start_path
 				end
 
-				-- Check package.json lists the package as a dependency
-				local pkg_name = formatter_packages[formatter_name]
-				if pkg_name then
-					local pkg_json_path = project_root .. "/package.json"
+				-- 2. Find the closest package.json upward that declares the dependency
+				--    (may differ from where the binary lives in a monorepo with hoisting)
+				for _, pkg_json_path in ipairs(vim.fs.find("package.json", {
+					path = start_path,
+					upward = true,
+					type = "file",
+					limit = math.huge,
+				})) do
 					local fd = io.open(pkg_json_path, "r")
-
 					if fd then
 						local ok, pkg = pcall(vim.json.decode, fd:read("*a"))
 						fd:close()
-
 						if ok and pkg then
 							local deps = vim.tbl_extend(
 								"force",
@@ -66,14 +75,14 @@ return {
 								pkg.devDependencies or {},
 								pkg.peerDependencies or {}
 							)
-							if not deps[pkg_name] then
-								return nil
+							if deps[pkg_name] then
+								return vim.fs.dirname(pkg_json_path)
 							end
 						end
 					end
 				end
 
-				return project_root
+				return nil
 			end
 		end
 
