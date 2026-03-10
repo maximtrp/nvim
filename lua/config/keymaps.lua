@@ -5,7 +5,7 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<down>", "gj")
 vim.keymap.set("n", "<up>", "gk")
 
-vim.keymap.set("n", "<leader>w", ":set list!<CR>")
+vim.keymap.set("n", "<leader>ws", ":set list!<CR>")
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 -- vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover, opts)

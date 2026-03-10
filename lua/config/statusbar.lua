@@ -7,18 +7,18 @@ local mode = {
 	end,
 	static = {
 		mode_names = {
-			["n"] = "NORMAL",
+			["n"] = "NORM",
 			["no"] = "O-PENDING",
 			["nov"] = "O-PENDING",
 			["noV"] = "O-PENDING",
 			["no\22"] = "O-PENDING",
-			["niI"] = "NORMAL",
-			["niR"] = "NORMAL",
-			["niV"] = "NORMAL",
-			["nt"] = "NORMAL",
-			["ntT"] = "NORMAL",
-			["v"] = "VISUAL",
-			["vs"] = "VISUAL",
+			["niI"] = "NORM",
+			["niR"] = "NORM",
+			["niV"] = "NORM",
+			["nt"] = "NORM",
+			["ntT"] = "NORM",
+			["v"] = "VIS",
+			["vs"] = "VIS",
 			["V"] = "V-LINE",
 			["Vs"] = "V-LINE",
 			["\22"] = "V-BLOCK",
@@ -26,19 +26,19 @@ local mode = {
 			["s"] = "SELECT",
 			["S"] = "S-LINE",
 			["\19"] = "S-BLOCK",
-			["i"] = "INSERT",
-			["ic"] = "INSERT",
-			["ix"] = "INSERT",
-			["R"] = "REPLACE",
-			["Rc"] = "REPLACE",
-			["Rx"] = "REPLACE",
-			["Rv"] = "V-REPLACE",
-			["Rvc"] = "V-REPLACE",
-			["Rvx"] = "V-REPLACE",
+			["i"] = "INS",
+			["ic"] = "INS",
+			["ix"] = "INS",
+			["R"] = "REPL",
+			["Rc"] = "REPL",
+			["Rx"] = "REPL",
+			["Rv"] = "V-REPL",
+			["Rvc"] = "V-REPL",
+			["Rvx"] = "V-REPL",
 			["c"] = "COMMAND",
 			["cv"] = "EX",
 			["ce"] = "EX",
-			["r"] = "REPLACE",
+			["r"] = "REPL",
 			["rm"] = "MORE",
 			["r?"] = "CONFIRM",
 			["!"] = "SHELL",
@@ -61,7 +61,9 @@ local mode = {
 		},
 	},
 	provider = function(self)
-		return " 󰢄 %2(" .. self.mode_names[self.mode] .. " %)"
+		local fmt = vim.bo.fileformat
+		local icons = { mac = "  ", unix = "  ", dos = "  " }
+		return icons[fmt] .. "%2(" .. self.mode_names[self.mode] .. " %)"
 	end,
 	hl = function(self)
 		local mode = self.mode:sub(1, 1)
@@ -272,11 +274,33 @@ local git_branch = {
 	},
 }
 
+local conform_formatters = {
+	condition = function()
+		return #require("conform").list_formatters(0) > 0
+	end,
+	provider = function()
+		local formatters = require("conform").list_formatters(0)
+		local name = formatters[1].name
+		if conditions.width_percent_below(#name, 0.2) then
+			return "󰸱 " .. #formatters .. "  "
+		end
+		return "󰸱 " .. name .. "  "
+	end,
+	hl = { fg = "orange" },
+	update = { "BufEnter", "BufWritePost" },
+	on_click = {
+		callback = function()
+			vim.cmd("ConformInfo")
+		end,
+		name = "heirline_conform",
+	},
+}
+
 local lsp_active = {
 	condition = conditions.lsp_attached,
 	provider = function()
 		local num = vim.lsp.get_clients({ bufnr = 0 })
-		return "󰞑 " .. #num .. "  "
+		return "󰕥 " .. #num .. "  "
 	end,
 	hl = { fg = "green", bold = false },
 	on_click = {
@@ -285,19 +309,6 @@ local lsp_active = {
 		end,
 		name = "heirline_lsp",
 	},
-}
-
-local file_format = {
-	provider = function()
-		local fmt = vim.bo.fileformat
-		local icons = {
-			mac = " ",
-			unix = " ",
-			dos = " ",
-		}
-		return icons[fmt] .. "  "
-	end,
-	hl = { fg = "blue" },
 }
 
 -- Ruler component
@@ -315,7 +326,7 @@ local statusline = {
 	{ provider = "%=", separator = " " },
 	search_count,
 	diagnostics,
-	file_format,
+	conform_formatters,
 	lsp_active,
 	ruler,
 }

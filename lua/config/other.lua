@@ -59,11 +59,14 @@ vim.lsp.config("pylsp", {
 	},
 })
 
+vim.lsp.config("pug", {})
+
 vim.lsp.config("emmet_language_server", {})
 
 vim.lsp.config("docker_language_server", {})
 
 vim.lsp.enable({
+	"basedpyright",
 	"biome",
 	"cssls",
 	"dartls",
@@ -75,7 +78,7 @@ vim.lsp.enable({
 	"lua_ls",
 	"oxlint",
 	"prismals",
-	"pylsp",
+	-- "pylsp",
 	"ruff",
 	"svelte",
 	"tailwindcss",
