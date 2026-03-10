@@ -8,10 +8,10 @@ local mode = {
 	static = {
 		mode_names = {
 			["n"] = "NORM",
-			["no"] = "O-PENDING",
-			["nov"] = "O-PENDING",
-			["noV"] = "O-PENDING",
-			["no\22"] = "O-PENDING",
+			["no"] = "O-PEND",
+			["nov"] = "O-PEND",
+			["noV"] = "O-PEND",
+			["no\22"] = "O-PEND",
 			["niI"] = "NORM",
 			["niR"] = "NORM",
 			["niV"] = "NORM",
@@ -23,7 +23,7 @@ local mode = {
 			["Vs"] = "V-LINE",
 			["\22"] = "V-BLOCK",
 			["\22s"] = "V-BLOCK",
-			["s"] = "SELECT",
+			["s"] = "SEL",
 			["S"] = "S-LINE",
 			["\19"] = "S-BLOCK",
 			["i"] = "INS",
@@ -42,7 +42,7 @@ local mode = {
 			["rm"] = "MORE",
 			["r?"] = "CONFIRM",
 			["!"] = "SHELL",
-			["t"] = "TERMINAL",
+			["t"] = "TERM",
 		},
 		mode_colors = {
 			n = "blue",
@@ -101,7 +101,7 @@ local file_name = {
 		if filename == "" then
 			return "..."
 		end
-		if not conditions.width_percent_below(#filename, 0.5) then
+		if not conditions.width_percent_below(#filename, 0.6) then
 			filename = vim.fn.pathshorten(filename)
 		end
 		return filename
@@ -182,15 +182,9 @@ local diagnostics = {
 	init = function(self)
 		self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
 		self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
-		self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
 		self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
-		self.signs = vim.diagnostic.config().signs.text
-		self.error_icon = self.signs[vim.diagnostic.severity.ERROR]
-		self.warn_icon = self.signs[vim.diagnostic.severity.WARN]
-		self.info_icon = self.signs[vim.diagnostic.severity.INFO]
-		self.hint_icon = self.signs[vim.diagnostic.severity.HINT]
+		self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
 	end,
-
 	update = { "DiagnosticChanged", "BufEnter" },
 	on_click = {
 		callback = function()
@@ -200,71 +194,163 @@ local diagnostics = {
 		end,
 		name = "heirline_diag",
 	},
+	-- Bug icon, color reflects highest severity
 	{
+		provider = " ",
+		hl = function(self)
+			if self.errors > 0 then
+				return { fg = "diag_error" }
+			elseif self.warnings > 0 then
+				return { fg = "diag_warn" }
+			elseif self.info > 0 then
+				return { fg = "diag_info" }
+			else
+				return { fg = "diag_hint" }
+			end
+		end,
+	},
+	{
+		condition = function(self)
+			return self.errors > 0
+		end,
 		provider = function(self)
-			return self.errors > 0 and (self.error_icon .. self.errors .. " ")
+			return self.errors
 		end,
 		hl = { fg = "diag_error" },
 	},
 	{
+		condition = function(self)
+			return self.errors > 0 and (self.warnings > 0 or self.info > 0 or self.hints > 0)
+		end,
+		provider = ":",
+		hl = { fg = "gray" },
+	},
+	{
+		condition = function(self)
+			return self.warnings > 0
+		end,
 		provider = function(self)
-			return self.warnings > 0 and (self.warn_icon .. self.warnings .. " ")
+			return self.warnings
 		end,
 		hl = { fg = "diag_warn" },
 	},
 	{
+		condition = function(self)
+			return self.warnings > 0 and (self.info > 0 or self.hints > 0)
+		end,
+		provider = ":",
+		hl = { fg = "gray" },
+	},
+	{
+		condition = function(self)
+			return self.info > 0
+		end,
 		provider = function(self)
-			return self.info > 0 and (self.info_icon .. self.info .. " ")
+			return self.info
 		end,
 		hl = { fg = "diag_info" },
 	},
 	{
+		condition = function(self)
+			return self.info > 0 and self.hints > 0
+		end,
+		provider = ":",
+		hl = { fg = "gray" },
+	},
+	{
+		condition = function(self)
+			return self.hints > 0
+		end,
 		provider = function(self)
-			return self.hints > 0 and (self.hint_icon .. self.hints .. " ")
+			return self.hints
 		end,
 		hl = { fg = "diag_hint" },
 	},
-	{
-		provider = " ",
-	},
+	{ provider = "  " },
 }
 
 local git_branch = {
 	condition = conditions.is_git_repo,
 	init = function(self)
 		self.status_dict = vim.b.gitsigns_status_dict
-		self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or self.status_dict.changed ~= 0
+		local entries = {
+			{ count = self.status_dict.added or 0, color = "git_add" },
+			{ count = self.status_dict.removed or 0, color = "git_del" },
+			{ count = self.status_dict.changed or 0, color = "git_change" },
+		}
+		table.sort(entries, function(a, b)
+			return a.count > b.count
+		end)
+		self.sorted_changes = {}
+		for _, e in ipairs(entries) do
+			if e.count > 0 then
+				table.insert(self.sorted_changes, e)
+			end
+		end
+		self.has_changes = #self.sorted_changes > 0
 	end,
 
 	hl = { fg = "purple" },
 	{
 		provider = function(self)
-			return " " .. self.status_dict.head .. "  "
+			return "󰘬 " .. self.status_dict.head .. "  "
 		end,
 		hl = { bold = false },
 	},
 
+	-- Icon colored by dominant change type
 	{
-		provider = function(self)
-			local count = self.status_dict.added or 0
-			return count > 0 and (" " .. count .. " ")
+		condition = function(self)
+			return self.has_changes
 		end,
-		hl = { fg = "git_add" },
+		provider = " ",
+		hl = function(self)
+			return { fg = self.sorted_changes[1].color }
+		end,
 	},
+	-- 1st number
 	{
-		provider = function(self)
-			local count = self.status_dict.removed or 0
-			return count > 0 and (" " .. count .. " ")
+		condition = function(self)
+			return self.has_changes
 		end,
-		hl = { fg = "git_del" },
+		provider = function(self)
+			return tostring(self.sorted_changes[1].count)
+		end,
+		hl = function(self)
+			return { fg = self.sorted_changes[1].color }
+		end,
 	},
+	-- Separator + 2nd number
 	{
-		provider = function(self)
-			local count = self.status_dict.changed or 0
-			return count > 0 and (" " .. count .. " ")
+		condition = function(self)
+			return #self.sorted_changes >= 2
 		end,
-		hl = { fg = "git_change" },
+		{ provider = ":", hl = { fg = "gray" } },
+		{
+			provider = function(self)
+				return tostring(self.sorted_changes[2].count)
+			end,
+			hl = function(self)
+				return { fg = self.sorted_changes[2].color }
+			end,
+		},
 	},
+	-- Separator + 3rd number
+	{
+		condition = function(self)
+			return #self.sorted_changes >= 3
+		end,
+		{ provider = ":", hl = { fg = "gray" } },
+		{
+			provider = function(self)
+				return tostring(self.sorted_changes[3].count)
+			end,
+			hl = function(self)
+				return { fg = self.sorted_changes[3].color }
+			end,
+		},
+	},
+	{ provider = "  " },
 
 	on_click = {
 		callback = function()
@@ -275,19 +361,12 @@ local git_branch = {
 }
 
 local conform_formatters = {
+	provider = "󰃢  ",
+	hl = { fg = "green" },
+	update = { "BufEnter", "BufWritePost" },
 	condition = function()
 		return #require("conform").list_formatters(0) > 0
 	end,
-	provider = function()
-		local formatters = require("conform").list_formatters(0)
-		local name = formatters[1].name
-		if conditions.width_percent_below(#name, 0.2) then
-			return "󰸱 " .. #formatters .. "  "
-		end
-		return "󰸱 " .. name .. "  "
-	end,
-	hl = { fg = "orange" },
-	update = { "BufEnter", "BufWritePost" },
 	on_click = {
 		callback = function()
 			vim.cmd("ConformInfo")
@@ -297,12 +376,11 @@ local conform_formatters = {
 }
 
 local lsp_active = {
-	condition = conditions.lsp_attached,
-	provider = function()
-		local num = vim.lsp.get_clients({ bufnr = 0 })
-		return "󰕥 " .. #num .. "  "
+	provider = "  ",
+	hl = { fg = "green" },
+	condition = function()
+		return #vim.lsp.get_clients({ bufnr = 0 }) > 0
 	end,
-	hl = { fg = "green", bold = false },
 	on_click = {
 		callback = function()
 			vim.cmd("LspInfo")
@@ -313,7 +391,7 @@ local lsp_active = {
 
 -- Ruler component
 local ruler = {
-	provider = " %l:%c  󰯓 %p%% ",
+	provider = " %l:%c:%p%% ",
 	hl = { fg = "gray" },
 }
 

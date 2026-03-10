@@ -57,7 +57,7 @@ vim.keymap.set("n", "<leader>yf", function()
 	local relative_path = vim.fn.expand("%:.")
 	if relative_path ~= "" then
 		vim.fn.setreg("+", relative_path)
-		vim.notify("Copied to clipboard: " .. relative_path)
+		vim.notify("Copied: " .. relative_path)
 	else
 		vim.notify("No file in current buffer")
 	end
