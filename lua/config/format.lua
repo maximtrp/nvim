@@ -1,19 +1,23 @@
-local priority = { "efm", "biome", "oxfmt", "svelte", "lua_ls", "jsonls" }
-
-local function first_formatter(client)
-  -- Find the first client (in priority order) that supports formatting
-  for _, name in ipairs(priority) do
-    if client.name == name then
-      return true
-    end
-  end
-  return false
-end
+local priority = { "svelte", "efm", "biome", "oxfmt", "lua_ls", "jsonls" }
 
 local format_first = function(bufnr)
+  local clients = vim.lsp.get_clients({ bufnr = bufnr })
+
+  -- Pick the highest-priority client available for this buffer
+  local chosen_id
+  for _, name in ipairs(priority) do
+    for _, client in ipairs(clients) do
+      if client.name == name then
+        chosen_id = client.id
+        break
+      end
+    end
+    if chosen_id then break end
+  end
+
   vim.lsp.buf.format({
     bufnr = bufnr,
-    filter = first_formatter,
+    filter = function(client) return client.id == chosen_id end,
     timeout_ms = 1000,
   })
 end
