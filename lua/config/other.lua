@@ -1,98 +1,10 @@
-vim.lsp.config("dartls", {
-	settings = { dart = { completeFunctionCalls = true, lineLength = 120, showTodos = false } },
-})
-
-vim.lsp.config("lua_ls", {
-	settings = { Lua = { runtime = { version = "LuaJIT" }, signatureHelp = { enabled = true } } },
-})
-
-vim.lsp.config("ts_ls", {
-	init_options = {
-		plugins = {
-			{
-				name = "@vue/typescript-plugin",
-				location = "/opt/homebrew/lib/node_modules/@vue/typescript-plugin",
-				languages = { "javascript", "typescript", "vue" },
-			},
-		},
-	},
-	filetypes = {
-		"javascript",
-		"typescript",
-		"vue",
-	},
-})
-
-vim.lsp.config("vtsls", {
-	settings = {
-		vtsls = {
-			tsserver = {
-				globalPlugins = {
-					{
-						name = "@vue/typescript-plugin",
-						location = "/opt/homebrew/lib/node_modules/@vue/typescript-plugin",
-						languages = { "vue" },
-						configNamespace = "typescript",
-					},
-				},
-			},
-		},
-	},
-	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-})
-
-vim.lsp.config("vue_ls", {})
-
-vim.lsp.config("pylsp", {
-	settings = {
-		pylsp = {
-			plugins = {
-				mypy = { enabled = true },
-				mccabe = { enabled = false },
-				pycodestyle = { enabled = false },
-				pydocstyle = { enabled = false },
-				pyflakes = { enabled = false },
-				flake8 = { enabled = false },
-				pylint = { enabled = false },
-			},
-		},
-	},
-})
-
-vim.lsp.config("pug", {})
-
-vim.lsp.config("emmet_language_server", {})
-
-vim.lsp.config("docker_language_server", {})
-
-vim.lsp.enable({
-	"basedpyright",
-	"biome",
-	"cssls",
-	"dartls",
-	"docker_language_server",
-	"emmet_language_server",
-	"eslint",
-	"html",
-	"jsonls",
-	"lua_ls",
-	"oxlint",
-	"prismals",
-	-- "pylsp",
-	"ruff",
-	"svelte",
-	"tailwindcss",
-	"vtsls",
-	"vue_ls",
-})
-
 vim.diagnostic.config({
 	signs = {
 		text = {
-			[vim.diagnostic.severity.ERROR] = " ",
+			[vim.diagnostic.severity.ERROR] = " ",
 			[vim.diagnostic.severity.WARN] = " ",
 			[vim.diagnostic.severity.HINT] = "󰌵 ",
-			[vim.diagnostic.severity.INFO] = " ",
+			[vim.diagnostic.severity.INFO] = "󰋼 ",
 		},
 	},
 	virtual_text = {

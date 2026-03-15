@@ -31,9 +31,18 @@ return {
 			}
 		end
 
+		local conditions = require("heirline.conditions")
+		local empty_statusline = {
+			condition = function()
+				return conditions.buffer_matches({ filetype = { "neo-tree" } })
+			end,
+			provider = "",
+			hl = { bg = "none", fg = "none" },
+		}
+
 		local function setup_heirline()
 			heirline.setup({
-				statusline = statusline,
+				statusline = { fallthrough = false, empty_statusline, statusline },
 				tabline = tabline,
 				opts = { colors = setup_colors() },
 			})

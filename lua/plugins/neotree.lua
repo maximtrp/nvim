@@ -17,6 +17,10 @@ return {
 						vim.opt_local.signcolumn = "no"
 						vim.opt_local.foldcolumn = "0"
 						vim.opt_local.statuscolumn = ""
+						vim.schedule(function()
+							vim.opt_local.statusline = " "
+							vim.opt_local.winhl = "StatusLine:Normal,StatusLineNC:Normal"
+						end)
 					end,
 				},
 			},
@@ -29,9 +33,15 @@ return {
 				position = "left",
 				width = 30,
 				mappings = {
-					["<space>"] = "none",
-					["l"] = "open",
-					["h"] = "close_node",
+					["A"] = "git_add_all",
+					["gu"] = "git_unstage_file",
+					["gU"] = "git_undo_last_commit",
+					["ga"] = "git_add_file",
+					["gt"] = "git_toggle_file_stage",
+					["gr"] = "git_revert_file",
+					["gc"] = "git_commit",
+					["gp"] = "git_push",
+					["gg"] = "git_commit_and_push",
 				},
 			},
 			filesystem = {
@@ -58,7 +68,19 @@ return {
 					expander_collapsed = "",
 					expander_expanded = "",
 				},
-				git_status = {},
+				git_status = {
+					symbols = {
+						added = "",
+						modified = "",
+						deleted = "",
+						renamed = "",
+						untracked = "",
+						ignored = "",
+						unstaged = "󰄱",
+						staged = "󰱒",
+						conflict = "",
+					},
+				},
 			},
 		})
 	end,
