@@ -2,9 +2,11 @@ return {
 	"nvim-telescope/telescope.nvim",
 	lazy = false,
 	dependencies = {
+    "nvim-lua/popup.nvim",
 		"nvim-lua/plenary.nvim",
 		"nvim-telescope/telescope-ui-select.nvim",
 		"nvim-telescope/telescope-file-browser.nvim",
+    "nvim-telescope/telescope-media-files.nvim",
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",
 			build = "make",
@@ -47,6 +49,10 @@ return {
 				},
 				path_display = { "truncate" },
 			},
+      media_files = {
+      filetypes = {"png", "webp", "jpg", "jpeg"},
+      find_cmd = "rg"
+    },
 			pickers = {
 				find_files = {
 					find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
@@ -54,6 +60,7 @@ return {
 			},
 		})
 
+		require("telescope").load_extension("media_files")
 		require("telescope").load_extension("file_browser")
 		require("telescope").load_extension("ui-select")
 		require("telescope").load_extension("fzf")

@@ -11,7 +11,6 @@ vim.lsp.config("dartls", {
 })
 
 vim.lsp.config("lua_ls", {
-  settings = { Lua = { runtime = { version = "LuaJIT" }, signatureHelp = { enabled = true } } },
 })
 
 vim.lsp.config("ts_ls", {

@@ -14,9 +14,9 @@ return {
 				{
 					event = "neo_tree_buffer_enter",
 					handler = function()
-						vim.opt_local.signcolumn = "no"
-						vim.opt_local.foldcolumn = "0"
-						vim.opt_local.statuscolumn = ""
+						--vim.opt_local.signcolumn = "no"
+						--vim.opt_local.foldcolumn = "0"
+						--vim.opt_local.statuscolumn = ""
 						vim.schedule(function()
 							vim.opt_local.statusline = " "
 							vim.opt_local.winhl = "StatusLine:Normal,StatusLineNC:Normal"
@@ -63,11 +63,6 @@ return {
 				},
 			},
 			default_component_configs = {
-				indent = {
-					with_expanders = true,
-					expander_collapsed = "",
-					expander_expanded = "",
-				},
 				git_status = {
 					symbols = {
 						added = "",

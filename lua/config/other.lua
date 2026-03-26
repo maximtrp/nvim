@@ -1,71 +1,71 @@
 vim.diagnostic.config({
-	signs = {
-		text = {
-			[vim.diagnostic.severity.ERROR] = " ",
-			[vim.diagnostic.severity.WARN] = " ",
-			[vim.diagnostic.severity.HINT] = "󰌵 ",
-			[vim.diagnostic.severity.INFO] = "󰋼 ",
-		},
-	},
-	virtual_text = {
-		spacing = 4,
-		source = "if_many",
-		prefix = function(diagnostic)
-			local signs = vim.diagnostic.config().signs.text
-			return signs[diagnostic.severity] or "●"
-		end,
-	},
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = " ",
+      [vim.diagnostic.severity.WARN] = " ",
+      [vim.diagnostic.severity.HINT] = "󰌵 ",
+      [vim.diagnostic.severity.INFO] = "󰋼 ",
+    },
+  },
+  virtual_text = {
+    spacing = 4,
+    source = "if_many",
+    prefix = function(diagnostic)
+      local signs = vim.diagnostic.config().signs.text
+      return signs[diagnostic.severity] or "●"
+    end,
+  },
 })
 
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-	group = highlight_group,
-	pattern = "*",
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = highlight_group,
+  pattern = "*",
 })
 
 vim.api.nvim_create_autocmd("VimEnter", {
-	callback = function()
-		local directory = vim.fn.isdirectory(vim.fn.argv(0)) == 1
-		if directory then
-			vim.cmd("bd")
-			vim.fn.chdir(vim.fn.argv(0))
-			require("telescope").extensions.file_browser.file_browser({
-				path = vim.fn.argv(0),
-				select_buffer = true,
-				no_ignore = true,
-				grouped = true,
-			})
-		elseif vim.fn.argc() == 0 then
-			vim.cmd("bd")
-			require("telescope.builtin").find_files({ hidden = true, no_ignore = false })
-		end
-	end,
+  callback = function()
+    local directory = vim.fn.isdirectory(vim.fn.argv(0)) == 1
+    if directory then
+      vim.cmd("bd")
+      vim.fn.chdir(vim.fn.argv(0))
+      require("telescope").extensions.file_browser.file_browser({
+        path = vim.fn.argv(0),
+        select_buffer = true,
+        no_ignore = true,
+        grouped = true,
+      })
+    elseif vim.fn.argc() == 0 then
+      vim.cmd("bd")
+      require("telescope.builtin").find_files({ hidden = true, no_ignore = false })
+    end
+  end,
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = "qf",
-	callback = function()
-		vim.opt_local.statusline = "  %f%=%l:%L "
-	end,
+  pattern = "qf",
+  callback = function()
+    vim.opt_local.statusline = "  %f%=%l:%L "
+  end,
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = "lazygit",
-	callback = function()
-		vim.opt_local.statusline = "  "
-	end,
+  pattern = "lazygit",
+  callback = function()
+    vim.opt_local.statusline = "  "
+  end,
 })
 
 vim.cmd([[au FileType * if index(['wipe', 'delete'], &bufhidden) >= 0 | set nobuflisted | endif]])
 
 vim.filetype.add({
-	pattern = {
-		-- ["compose.*%.ya?ml"] = "yaml.docker-compose",
-		["docker%-compose.*%.ya?ml"] = "yaml.docker-compose",
-	},
+  pattern = {
+    -- ["compose.*%.ya?ml"] = "yaml.docker-compose",
+    ["docker%-compose.*%.ya?ml"] = "yaml.docker-compose",
+  },
 })
 
 -- vim.lsp.handlers["textDocument/publishDiagnostics"] = function(_, result, ctx, config)

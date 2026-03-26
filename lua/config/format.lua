@@ -1,4 +1,4 @@
-local priority = { "svelte", "efm", "biome", "oxfmt", "lua_ls", "jsonls" }
+local priority = { "ruff", "lua_ls", "efm", "biome", "oxfmt", "svelte", "jsonls" }
 
 local format_first = function(bufnr)
   local clients = vim.lsp.get_clients({ bufnr = bufnr })
@@ -26,6 +26,20 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   callback = function(args)
     format_first(args.buf)
   end,
+})
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client == nil then
+      return
+    end
+
+    if client.name == "ts_ls" or client.name == "vtsls" or client.name == "vue_ls" then
+      client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.documentRangeFormattingProvider = false
+    end
+  end
 })
 
 return {
