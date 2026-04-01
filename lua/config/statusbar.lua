@@ -411,7 +411,7 @@ local lsp_active = {
   end,
   on_click = {
     callback = function()
-      vim.cmd("LspInfo")
+      vim.cmd("checkhealth vim.lsp")
     end,
     name = "heirline_lsp",
   },

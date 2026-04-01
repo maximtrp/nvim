@@ -10,17 +10,17 @@ vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 -- vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover, opts)
 vim.keymap.set("n", "ge", function()
-	vim.diagnostic.open_float({ scope = "line" })
+  vim.diagnostic.open_float({ scope = "line" })
 end, opts)
 vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts)
 vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 vim.keymap.set({ "n", "v" }, "<leader>xe", require("nvim-emmet").wrap_with_abbreviation)
 
 vim.keymap.set(
-	"n",
-	"<leader>fb",
-	':lua require("telescope").extensions.file_browser.file_browser({ path = vim.fn.expand("%:p:h"), select_buffer = true, grouped = true, no_ignore = true })<cr>',
-	opts
+  "n",
+  "<leader>fb",
+  ':lua require("telescope").extensions.file_browser.file_browser({ path = vim.fn.expand("%:p:h"), select_buffer = true, grouped = true, no_ignore = true })<cr>',
+  opts
 )
 vim.keymap.set("n", "<leader>r", "<cmd>Telescope neoclip<cr>", opts)
 vim.keymap.set("n", "<leader>fd", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
@@ -33,12 +33,12 @@ vim.keymap.set("n", "<leader>fS", "<cmd>Telescope lsp_dynamic_workspace_symbols<
 vim.keymap.set("n", "<leader>ft", "<cmd>Telescope buffers previewer=false<CR>", opts)
 vim.keymap.set("n", "<leader>fw", "<cmd>Telescope live_grep hidden=true<CR>", opts)
 vim.keymap.set("n", "<leader>fz", function()
-	require("telescope.builtin").grep_string({
-		shorten_path = true,
-		word_match = "-w",
-		only_sort_text = true,
-		search = "",
-	})
+  require("telescope.builtin").grep_string({
+    shorten_path = true,
+    word_match = "-w",
+    only_sort_text = true,
+    search = "",
+  })
 end)
 
 vim.keymap.set("n", "<leader>fW", "<cmd>Telescope grep_string<CR>", opts)
@@ -47,27 +47,25 @@ vim.keymap.set("n", "<leader>gr", "<cmd>Telescope lsp_references<cr>", opts)
 vim.keymap.set("n", "<leader>gd", "<cmd>Telescope lsp_definitions<cr>", opts)
 vim.keymap.set("n", "<leader>gi", "<cmd>Telescope lsp_implementations<cr>", opts)
 
-vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>", opts)
-
 vim.keymap.set({ "v", "n" }, "<leader>y", '"+y', opts)
 vim.keymap.set({ "v", "n" }, "<leader>d", '"+d', opts)
 vim.keymap.set({ "v", "n" }, "<leader>D", '"_d', opts)
 vim.keymap.set({ "v", "n" }, "<leader>p", '"+p', opts)
 vim.keymap.set({ "v", "n" }, "<leader>F", function()
-	require("conform").format({ async = true })
+  vim.lsp.buf.format({ async = true })
 end, opts)
 vim.keymap.set({ "v", "n" }, "<leader>P", function()
-	vim.cmd("normal! p")
-	require("conform").format({ async = true })
+  vim.cmd("normal! p")
+  vim.lsp.buf.format({ async = true })
 end, opts)
 vim.keymap.set("n", "<leader>yf", function()
-	local relative_path = vim.fn.expand("%:.")
-	if relative_path ~= "" then
-		vim.fn.setreg("+", relative_path)
-		vim.notify("Copied: " .. relative_path)
-	else
-		vim.notify("No file in current buffer")
-	end
+  local relative_path = vim.fn.expand("%:.")
+  if relative_path ~= "" then
+    vim.fn.setreg("+", relative_path)
+    vim.notify("Copied: " .. relative_path)
+  else
+    vim.notify("No file in current buffer")
+  end
 end, opts)
 
 vim.keymap.set("n", "[b", "<cmd>bprevious<cr>")
@@ -75,21 +73,22 @@ vim.keymap.set("n", "]b", "<cmd>bnext<cr>")
 vim.keymap.set("n", "<leader>q", "<cmd>bd<cr>", opts)
 
 vim.keymap.set("n", "[d", function()
-	vim.diagnostic.jump({ count = -1, float = true })
+  vim.diagnostic.jump({ count = -1, float = true })
 end)
 vim.keymap.set("n", "]d", function()
-	vim.diagnostic.jump({ count = 1, float = true })
+  vim.diagnostic.jump({ count = 1, float = true })
 end)
 
 vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<CR>", opts)
 vim.keymap.set("n", "<leader>o", "<cmd>Outline<CR>")
 vim.keymap.set("n", "<leader>t", "<cmd>Trouble diagnostics<CR>")
 
+vim.keymap.set("n", "<leader>gg", "<cmd>LazyGit<cr>")
 vim.keymap.set("n", "<leader>gb", "<cmd>Gitsigns blame_line<cr>")
 vim.keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>")
 
 vim.keymap.set("n", "<leader>wl", function()
-	vim.print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  vim.print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 end, opts)
 
 --vim.keymap.set("n", "zR", require("ufo").openAllFolds)
