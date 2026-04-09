@@ -13,7 +13,7 @@ vim.lsp.config("dartls", {
 vim.lsp.config("lua_ls", {
 })
 
-vim.lsp.config("ts_ls", {
+--[[ vim.lsp.config("ts_ls", {
   init_options = {
     plugins = {
       {
@@ -24,8 +24,9 @@ vim.lsp.config("ts_ls", {
     },
   },
   filetypes = { "javascript", "typescript", "vue" },
-})
+}) ]]
 
+-- local vue_ts_plugin = vim.fn.system("npm root -g"):gsub("%s+", "") .. "/@vue/typescript-plugin"
 vim.lsp.config("vtsls", {
   settings = {
     vtsls = {
@@ -44,7 +45,7 @@ vim.lsp.config("vtsls", {
   filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
 })
 
-vim.lsp.config("pylsp", {
+--[[ vim.lsp.config("pylsp", {
   settings = {
     pylsp = {
       plugins = {
@@ -58,7 +59,7 @@ vim.lsp.config("pylsp", {
       },
     },
   },
-})
+}) ]]
 
 
 vim.lsp.config("efm", {

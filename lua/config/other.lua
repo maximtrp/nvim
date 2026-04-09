@@ -67,21 +67,3 @@ vim.filetype.add({
     ["docker%-compose.*%.ya?ml"] = "yaml.docker-compose",
   },
 })
-
--- vim.lsp.handlers["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
--- 	if vim.api.nvim_get_mode().mode == "i" then
--- 		return
--- 	end
--- 	vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
--- end
-
--- local original_did_change = vim.lsp.handlers["textDocument/didChange"]
--- vim.lsp.handlers["textDocument/didChange"] = function(err, result, ctx, config)
--- 	print("I'm your change handler!!!")
--- 	local mode = vim.api.nvim_get_mode().mode
---
--- 	if mode ~= "i" then
--- 		vim.notify("I'm your change ihandler!!!")
--- 		original_did_change(err, result, ctx, config)
--- 	end
--- end

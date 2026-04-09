@@ -58,7 +58,7 @@ require("telescope").setup({
   },
 })
 
-require("telescope").load_extension("media_files")
+-- require("telescope").load_extension("media_files")
 require("telescope").load_extension("file_browser")
 require("telescope").load_extension("ui-select")
 if vim.fn.filereadable(fzf_lib) == 1 then

@@ -370,7 +370,7 @@ local git_branch = {
   },
 }
 
-local conform_formatters = {
+--[[ local conform_formatters = {
   provider = "󰃢  ",
   hl = { fg = "green" },
   update = { "BufEnter", "BufWritePost" },
@@ -383,21 +383,25 @@ local conform_formatters = {
     end,
     name = "heirline_conform",
   },
-}
+} ]]
 
 local lsp_formatters = {
   provider = "󰃢  ",
   hl = { fg = "green" },
   update = { "BufEnter", "BufWritePost" },
   condition = function()
-    local lsps_active = vim.lsp.get_clients({ bufnr = 0 })
-    local lsps = require("config.format").lsp_formatters
-    for _, lsp_active in ipairs(lsps_active) do
-      for _, lsp in ipairs(lsps) do
-        if lsp_active.name == lsp then
-          return true
+    local ft = vim.bo[0].filetype
+    local ft_map = require("config.format").ft_formatters
+    local priority = ft_map[ft]
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
+    if priority then
+      for _, name in ipairs(priority) do
+        for _, client in ipairs(clients) do
+          if client.name == name then return true end
         end
       end
+    else
+      return #clients > 0
     end
     return false
   end,
