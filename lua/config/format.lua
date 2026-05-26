@@ -1,4 +1,6 @@
 local ft_formatters = {
+  dockerfile      = { "docker_language_server" },
+  python          = { "ruff" },
   javascript      = { "efm", "biome", "oxfmt" },
   javascriptreact = { "efm", "biome", "oxfmt" },
   typescript      = { "efm", "biome", "oxfmt" },
@@ -49,6 +51,18 @@ end
 vim.api.nvim_create_autocmd("BufWritePre", {
   callback = function(args)
     format_buf(args.buf)
+  end,
+})
+
+vim.api.nvim_create_autocmd("VimLeavePre", {
+  callback = function()
+    local seen = {}
+    for _, client in ipairs(vim.lsp.get_clients()) do
+      if client.name == "efm" and client.root_dir and not seen[client.root_dir] then
+        seen[client.root_dir] = true
+        vim.fn.jobstart({ "prettierd", "stop" }, { cwd = client.root_dir, detach = true })
+      end
+    end
   end,
 })
 
